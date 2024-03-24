@@ -1,28 +1,33 @@
-<div class="logo"></div>
-<ul nz-menu nzMode="inline">
-  <li nz-menu-item>
-    <span nz-icon nzType="pie-chart"></span>
-    <span>Option 1</span>
+<ul nz-menu nzTheme="light"
+    nzMode="inline"
+    class="pt-4 gap-10 mt-12 sm:gap-2">
+
+  <li nz-menu-item routerLink= '/shop'
+      [routerLinkActive]="'ant-menu-item-selected'"
+      (click)="onItemClicked()">
+    <a>
+      <span nz-icon nzType="shop" [nzTheme]="isRouteActive('/shop')? 'fill': 'outline' " style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text': isSideNavCollapsed}">Shop</span>
+    </a>
   </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="desktop"></span>
-    <span>Option 2</span>
+  <li nz-menu-item routerLink= '/aboutus'
+      [routerLinkActive]="'ant-menu-item-selected'"
+      (click)="onItemClicked()">
+    <a class="flex flex-row items-center">
+      <span nz-icon nzType="info-circle" [nzTheme]="isRouteActive('/aboutus')? 'fill': 'outline' " style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text':isSideNavCollapsed}">About Us</span></a>
   </li>
-  <li nz-submenu nzTitle="User" nzIcon="user">
-    <ul>
-      <li nz-menu-item>Tom</li>
-      <li nz-menu-item>Bill</li>
-      <li nz-menu-item>Alex</li>
-    </ul>
+  <li nz-menu-item routerLink= '/profile'
+      [routerLinkActive]="'ant-menu-item-selected'"
+      (click)="onItemClicked()">
+    <a class="flex flex-row items-center">
+      <span nz-icon nzType="smile" [nzTheme]="isRouteActive('/profile')? 'fill': 'outline' " style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text':isSideNavCollapsed}">Profile</span></a>
   </li>
-  <li nz-submenu nzTitle="Team" nzIcon="team">
-    <ul>
-      <li nz-menu-item>Team 1</li>
-      <li nz-menu-item>Team 2</li>
-    </ul>
-  </li>
-  <li nz-menu-item>
-    <span nz-icon nzType="file"></span>
-    <span>File</span>
+  <li nz-menu-item
+      (click)="onItemClicked()">
+    <a class="flex flex-row items-center">
+      <span nz-icon nzType="logout" nzTheme="outline" style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text':isSideNavCollapsed}">Log out</span></a>
   </li>
 </ul>

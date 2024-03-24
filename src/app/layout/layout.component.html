@@ -12,7 +12,7 @@
       [nzCollapsedWidth]="getCollapsedWidth()"
       class="shadow-md flex flex-col justify-start gap-2 h-full box-border fixed z-50 md:z-40"
       [nzTrigger]="null">
-      <app-side-nav></app-side-nav>
+      <app-side-nav [isSideNavCollapsed]="isCollapsed"></app-side-nav>
     </nz-sider>
 
     <nz-content class="mt-16 transition-all" [ngClass]="{'content-margin-left': !isCollapsed, 'content-margin-anim':isCollapsed}">
