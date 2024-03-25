@@ -1,0 +1,26 @@
+<form nz-form [nzLayout]="'inline'"
+      [formGroup]="validateForm"
+      (ngSubmit)="onSubmitForm()">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your email!">
+      <nz-input-group>
+        <input formControlName="email" nz-input placeholder="email" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-input-group>
+        <input formControlName="password" nz-input type="password" placeholder="Password" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control>
+      <button *ngIf="mode=='signUp'; else signIn" nz-button nzType="primary" [disabled]="!validateForm.valid">Sign up</button>
+      <ng-template #signIn>
+        <button nz-button nzType="primary" [disabled]="!validateForm.valid">Log in</button>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+</form>

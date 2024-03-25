@@ -1,0 +1,22 @@
+<div class="hidden md:block">
+  <button nz-dropdown [nzTrigger]='trigger'
+          class="bg-stone-100 rounded-3xl flex flex-row gap-1 w-fit content-center items-center text-center px-2 box-border py-0 h-10"
+          [nzPlacement]='placement'
+          (click)="onLog()"
+          [nzDropdownMenu]="menu"><a class="flex flex-row items-center gap-1" nz-icon>profile</a>
+    <span nz-icon nzType="down"></span>
+  </button>
+
+  <nz-dropdown-menu #menu="nzDropdownMenu" class="rounded-3xl">
+    <ul nz-menu>
+      <li nz-menu-item
+          class="active"
+          (click)="handleItem(site)"
+          *ngFor="let site of sites ; let i = index" ><a class="flex flex-row items-center gap-1" nz-icon>{{site.name}}</a></li>
+
+
+      <li nz-menu-divider></li>
+    </ul>
+  </nz-dropdown-menu>
+</div>
+

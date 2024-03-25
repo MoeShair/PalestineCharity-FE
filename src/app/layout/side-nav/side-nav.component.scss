@@ -1,0 +1,26 @@
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+}
+
+.hide-text {
+  display: none;
+}
+.hide{
+  display: none !important;
+}
+ul li a{
+  //font-weight: bold;
+  font-family: 'Poppins', 'Roboto', sans-serif;
+}
+
+@media (max-width: 640px) {
+  li a {
+    pointer-events: none;
+  }
+  .hide{
+    display: block !important;
+  }
+}

@@ -1,1 +1,28 @@
-<p>layout works!</p>
+<nz-layout>
+  <nz-header class="px-5 bg-white box-border shadow-md z-50 md:px-10 fixed top-0 w-screen">
+      <app-header [isSideCollapsed]="isCollapsed" [isLoggedIn]="isAuthenticated"></app-header>
+  </nz-header>
+
+  <nz-layout>
+    <nz-sider
+      nzTheme="light" nzCollapsible
+      [(nzCollapsed)]="isCollapsed"
+      (mouseenter)="onHoverIn()"
+      (mouseleave)="onHoverIn()"
+      [nzCollapsedWidth]="getCollapsedWidth()"
+      class="shadow-md flex flex-col justify-start gap-2 h-full box-border fixed z-50 md:z-40"
+      [nzTrigger]="null">
+      <app-side-nav [isSideNavCollapsed]="isCollapsed"></app-side-nav>
+    </nz-sider>
+
+    <nz-content class="mt-16 transition-all" [ngClass]="{'content-margin-left': !isCollapsed, 'content-margin-anim':isCollapsed}">
+      <ng-content>
+
+      </ng-content>
+      <nz-footer>
+        <app-footer></app-footer>
+      </nz-footer>
+    </nz-content>
+  </nz-layout>
+
+</nz-layout>
