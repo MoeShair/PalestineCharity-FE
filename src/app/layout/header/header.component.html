@@ -1,1 +1,66 @@
-<p>header works!</p>
+<div class="w-full flex flex-row justify-between h-full content-center items-center">
+  <div class="flex flex-row gap-5 h-2/3 text-justify items-center">
+    <button
+      class="block md:hidden"
+      nz-icon
+      (click)="onOpenNav()">
+      <svg width="25" height="25" viewBox="0 0 25 25" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.5 12.986h18m-18-6h18m-18 12h18" stroke="#101828" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <a routerLink="/shop" class="block">
+      <span class="italic font-extrabold text-4xl h-full">PalHope</span></a>
+    <a
+      routerLink="/my-websites"
+      class="hidden md:block"
+      [routerLinkActive]="'is-active'">Site</a>
+    <a
+      routerLink="/faq"
+      class="hidden md:block"
+      [routerLinkActive]="'is-active'">FAQ</a>
+  </div>
+
+  <div class="flex flex-row gap-3 h-8 box-border items-center md:gap-10">
+    <nz-input-group [nzPrefix]="prefixIconSearch" class="rounded w-32 md:w-64">
+      <input type="text" nz-input placeholder="Search links">
+    </nz-input-group>
+    <ng-template #prefixIconSearch>
+      <span nz-icon nzType="search" nzTheme="outline"></span>
+    </ng-template>
+    <app-notifications *ngIf="isLoggedIn"></app-notifications>
+    <app-account-comp
+      *ngIf="isLoggedIn"
+      [placement]="'bottomRight'"
+      [trigger]="'click'"></app-account-comp>
+    <ng-container *ngIf="!isLoggedIn">
+      <button
+        (click)="showLogInModal()"
+        class="text-primary-500">
+        Log in
+      </button>
+      <nz-modal [(nzVisible)]="isLogInVisible" nzTitle="log in to your account" (nzOnCancel)="handleCancel()">
+        <ng-container *nzModalContent>
+          <app-auth [mode]="'logIn'"></app-auth>
+        </ng-container>
+        <ng-container *nzModalFooter>
+          <button (click)="handleCancel()">cancel</button>
+        </ng-container>
+      </nz-modal>
+      <button
+        (click)="showModal()"
+        class="text-primary-500 border border-primary-500 rounded-xl px-4 flex justify-center content-center items-center h-8">
+        Sign up
+      </button>
+      <nz-modal [(nzVisible)]="isVisible" nzTitle="Register now" (nzOnCancel)="handleCancel()">
+        <ng-container *nzModalContent>
+          <app-auth [mode]="'signUp'"></app-auth>
+        </ng-container>
+        <ng-container *nzModalFooter>
+          <button (click)="handleCancel()">cancel</button>
+        </ng-container>
+      </nz-modal>
+    </ng-container>
+  </div>
+</div>

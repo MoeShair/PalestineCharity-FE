@@ -32,6 +32,7 @@ import {LayoutSiderService} from "./layout-sider.service";
 export class LayoutComponent {
   isCollapsed = true;
   @Input() collapsedWidth: number = 70;
+  isAuthenticated:boolean = false;
 
   constructor(private siderService: LayoutSiderService) {
   }
