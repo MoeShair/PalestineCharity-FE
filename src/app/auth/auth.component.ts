@@ -6,6 +6,8 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {Router} from "@angular/router";
 import {LayoutSiderService} from "../layout/layout-sider.service";
 import {CommonModule} from "@angular/common";
+import {AuthService, Response, signUpResponse} from "./auth.service";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-auth',
@@ -26,7 +28,8 @@ import {CommonModule} from "@angular/common";
 export class AuthComponent {
   constructor(private router: Router,
               private fb: NonNullableFormBuilder,
-              private sideNavService: LayoutSiderService) {
+              private sideNavService: LayoutSiderService,
+              private authService: AuthService) {
   }
   @Input()
   mode: 'logIn'|'signUp'= "logIn";
@@ -40,27 +43,28 @@ export class AuthComponent {
   });
 
   onSubmitForm(): void {
-    // const email  = this.validateForm.value.email;
-    // const password = this.validateForm.value.password;
-    // let authObservable: Observable<Response>;
-    // if (this.validateForm.valid) {
-    //   if(this.mode==='signUp'){
-    //     authObservable = this.authService.signUpWithGoogle(email, password);
-    //     authObservable.subscribe({
-    //       next: response => {
-    //         this.router.navigate(['/dashboard']);
-    //       },
-    //     });
-    //   }
-    //   else if(this.mode==="logIn"){
-    //     authObservable = this.authService.signIn(email, password);
-    //     authObservable.subscribe({
-    //       next: response => {
-    //         this.sideNavService.siderSubject.next(true);
-    //         this.router.navigate(['']);
-    //       },
-    //     });
-    //   }
-    // }
+    const email  = this.validateForm.value.email;
+    const password = this.validateForm.value.password;
+    let authObservable: Observable<Response>;
+    let signupObservable: Observable<signUpResponse>;
+    if (this.validateForm.valid) {
+      if(this.mode==='signUp'){
+        signupObservable = this.authService.signUp(email, password);
+        signupObservable.subscribe({
+          next: response => {
+            this.router.navigate(['']);
+          },
+        });
+      }
+      else if(this.mode==="logIn"){
+        authObservable = this.authService.signIn(email, password);
+        authObservable.subscribe({
+          next: response => {
+            this.sideNavService.siderSubject.next(true);
+            this.router.navigate(['']);
+          },
+        });
+      }
+    }
   }
 }

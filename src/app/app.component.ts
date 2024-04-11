@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {LayoutComponent} from "./layout/layout.component";
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,13 @@ import {LayoutComponent} from "./layout/layout.component";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'PalestineCharity-FE';
+
+  constructor(private authService: AuthService) {
+  }
+
+    ngOnInit() {
+        this.authService.autoLogin();
+    }
 }

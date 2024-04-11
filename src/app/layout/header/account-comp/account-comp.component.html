@@ -2,8 +2,7 @@
   <button nz-dropdown [nzTrigger]='trigger'
           class="bg-stone-100 rounded-3xl flex flex-row gap-1 w-fit content-center items-center text-center px-2 box-border py-0 h-10"
           [nzPlacement]='placement'
-          (click)="onLog()"
-          [nzDropdownMenu]="menu"><a class="flex flex-row items-center gap-1" nz-icon>profile</a>
+          [nzDropdownMenu]="menu"><a class="flex flex-row items-center gap-1" nz-icon>{{ name }}</a>
     <span nz-icon nzType="down"></span>
   </button>
 

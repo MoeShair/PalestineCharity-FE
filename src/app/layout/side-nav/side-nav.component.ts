@@ -5,6 +5,7 @@ import {NzDrawerComponent, NzDrawerPlacement} from "ng-zorro-antd/drawer";
 import {LayoutSiderService} from "../layout-sider.service";
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {NgClass} from "@angular/common";
+import {AuthService} from "../../auth/auth.service";
 
 @Component({
   selector: 'app-side-nav',
@@ -23,7 +24,10 @@ import {NgClass} from "@angular/common";
   styleUrl: './side-nav.component.scss'
 })
 export class SideNavComponent {
-  constructor(private siderService: LayoutSiderService, private router: Router, private route: ActivatedRoute) {
+  constructor(private siderService: LayoutSiderService,
+              private router: Router,
+              private route: ActivatedRoute,
+              private authService: AuthService) {
   }
   @Input()
   isSideNavCollapsed = false;
@@ -47,12 +51,7 @@ export class SideNavComponent {
     //this.iconsState = "fill"
   }
 
-  visible = false;
-  placement: NzDrawerPlacement = 'bottom';
-  open(): void {
-    this.visible = true;
-  }
-  close(): void {
-    this.visible = false;
+  logOut(){
+    this.authService.logout();
   }
 }

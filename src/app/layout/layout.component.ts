@@ -9,13 +9,15 @@ import {
 import {HeaderComponent} from "./header/header.component";
 import {SideNavComponent} from "./side-nav/side-nav.component";
 import {FooterComponent} from "./footer/footer.component";
-import {NgClass} from "@angular/common";
+import {CommonModule, NgClass} from "@angular/common";
 import {LayoutSiderService} from "./layout-sider.service";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-layout',
   standalone: true,
   imports: [
+    CommonModule,
     NzLayoutComponent,
     NzHeaderComponent,
     HeaderComponent,
@@ -34,8 +36,10 @@ export class LayoutComponent {
   @Input() collapsedWidth: number = 70;
   isAuthenticated:boolean = false;
 
-  constructor(private siderService: LayoutSiderService) {
+  constructor(private siderService: LayoutSiderService,
+              private authService: AuthService) {
   }
+
   innerWidth:any;
 
   ngOnInit() {
@@ -44,6 +48,9 @@ export class LayoutComponent {
     this.siderService.siderSubject.subscribe((collapsed)=>{
       this.isCollapsed = collapsed
     });
+    this.authService.user.subscribe(user =>{
+      this.isAuthenticated = !!user;
+    })
     this.setSideNavWidth();
   }
 

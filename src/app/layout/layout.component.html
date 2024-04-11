@@ -9,6 +9,7 @@
       [(nzCollapsed)]="isCollapsed"
       (mouseenter)="onHoverIn()"
       (mouseleave)="onHoverIn()"
+      *ngIf="isAuthenticated"
       [nzCollapsedWidth]="getCollapsedWidth()"
       class="shadow-md flex flex-col justify-start gap-2 h-full box-border fixed z-50 md:z-40"
       [nzTrigger]="null">
