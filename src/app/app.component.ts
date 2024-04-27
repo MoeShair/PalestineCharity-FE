@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {LayoutComponent} from "./layout/layout.component";
 import {AuthService} from "./auth/auth.service";
+import {DashboardService} from "./pages/dashboard/dashboard.service";
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,12 @@ import {AuthService} from "./auth/auth.service";
 export class AppComponent implements OnInit {
   title = 'PalestineCharity-FE';
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private dashboardService: DashboardService) {
   }
 
     ngOnInit() {
+        this.dashboardService.getCampaigns().subscribe();
         this.authService.autoLogin();
     }
 }

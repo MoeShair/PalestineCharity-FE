@@ -1,4 +1,4 @@
-import {Component, HostListener, Input} from '@angular/core';
+import {Component, HostListener, Input, ViewEncapsulation} from '@angular/core';
 import {
   NzContentComponent,
   NzFooterComponent,
@@ -29,7 +29,8 @@ import {AuthService} from "../auth/auth.service";
     NgClass
   ],
   templateUrl: './layout.component.html',
-  styleUrl: './layout.component.scss'
+  styleUrl: './layout.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class LayoutComponent {
   isCollapsed = true;

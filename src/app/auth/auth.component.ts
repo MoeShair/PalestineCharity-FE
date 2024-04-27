@@ -38,7 +38,7 @@ export class AuthComponent {
     email: FormControl<string>;
     password: FormControl<string>;
   }> = this.fb.group({
-    email: ['', [Validators.required]],
+    email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 

@@ -1,4 +1,4 @@
-export class User {
+export class UserModel {
     constructor(
       private UserID: number,
       private Name: string,

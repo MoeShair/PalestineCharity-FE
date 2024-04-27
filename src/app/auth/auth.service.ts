@@ -3,7 +3,7 @@ import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
-import {User} from "./user";
+import {UserModel} from "./user.model";
 
 export interface Response {
   user :{
@@ -24,7 +24,7 @@ export interface signUpResponse {
 })
 export class AuthService {
 
-  user = new BehaviorSubject<User | null>(null);
+  user = new BehaviorSubject<UserModel | null>(null);
 
   constructor(private http: HttpClient,
               private router: Router,
@@ -54,7 +54,7 @@ export class AuthService {
         tap( resData =>{
           console.log('Response data:', resData);
           const userData = resData.user
-          const user = new User(
+          const user = new UserModel(
               userData.UserID,
               userData.Name,
               userData.Email,
@@ -74,12 +74,12 @@ export class AuthService {
       return throwError(() => errorMessage);
     }
     switch (errResponse.error.error.message) {
-      case 'User already exists with this Email': {
+      case 'UserModel already exists with this Email': {
         errorMessage = 'This email exist, please try logging in.';
         break;
       }
-      case 'User not found': {
-        errorMessage = 'User not found';
+      case 'UserModel not found': {
+        errorMessage = 'UserModel not found';
         break;
       }
       case 'TOO_MANY_ATTEMPTS_TRY_LATER': {
@@ -117,7 +117,7 @@ export class AuthService {
     if (!user) {
       return
     }
-    const loadedUser = new User(
+    const loadedUser = new UserModel(
       user.UserID,
       user.Name,
       user.Email,
