@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import {CampaignComponent} from "./pages/dashboard/campaign/campaign.component";
 
 export const routes: Routes = [
   {
@@ -19,7 +20,17 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/profile/profile.component').then(m => m.ProfileComponent)
   },
   {
+    path: 'campaign/:id',
+      loadComponent: () => import('./pages/dashboard/campaign/campaign.component').then(m => m.CampaignComponent),
+      // resolve:
+      //   {
+      //     campaign: 'campaignResolver'
+      //   }
+
+  },
+  {
     path: '',
-    loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+    loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
+    //resolve: {campaigns: 'dashboardResolver'}
   }
 ];

@@ -11,10 +11,11 @@ export class Campaign{
   private _endDate: Date;
   private _leaderboard: UserModel[];
   private _description: string;
+  private _id: string;
 
   constructor(campaignName: string, campaignImage: string, organizationName: string, goalAmount: number,
               status: "Active" | "Suspended" | "Ended", currentAmount: number, startDate: Date, endDate: Date, leaderboard: UserModel[],
-              description: string) {
+              description: string, id: string) {
     this._campaignName = campaignName;
     this._campaignImage = campaignImage;
     this._organizationName = organizationName;
@@ -25,6 +26,7 @@ export class Campaign{
     this._endDate = endDate;
     this._leaderboard = leaderboard;
     this._description = description;
+    this._id = id;
   }
 
   get campaignName(): string {
@@ -105,5 +107,13 @@ export class Campaign{
 
   set description(value: string) {
     this._description = value;
+  }
+
+  get id(): string {
+    return this._id;
+  }
+
+  set id(value: string) {
+    this._id = value;
   }
 }

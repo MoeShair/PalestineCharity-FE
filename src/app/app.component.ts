@@ -10,7 +10,7 @@ import {DashboardService} from "./pages/dashboard/dashboard.service";
   standalone: true,
   imports: [RouterOutlet, NzButtonComponent, LayoutComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   title = 'PalestineCharity-FE';
@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   }
 
     ngOnInit() {
-        this.dashboardService.getCampaigns().subscribe();
+        this.dashboardService.getCampaigns().subscribe(resdata => console.log(resdata));
         this.authService.autoLogin();
     }
 }

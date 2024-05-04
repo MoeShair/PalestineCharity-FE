@@ -1,0 +1,25 @@
+<nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+  <form nz-form [formGroup]="validateForm" (ngSubmit)="donate()">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your card number!">
+        <input type="number" nz-input formControlName="CardNumber" placeholder="Card Number">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your Name!">
+        <input type="text" nz-input formControlName="Name" placeholder="Name on the card">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input your CVV!">
+        <input type="number" nz-input formControlName="CVV" placeholder="CVV">
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control nzErrorTip="Please input the card expiration date!">
+        <input type="text" nz-input formControlName="expirationDate" placeholder="MM/YY">
+      </nz-form-control>
+    </nz-form-item>
+    <button nz-button [nzType]="'primary'">Confirm</button>
+  </form>
+</nz-card>

@@ -4,6 +4,7 @@ import {NzButtonComponent} from "ng-zorro-antd/button";
 import {DashboardService} from "./dashboard.service";
 import {Campaign} from "./campaign.model";
 import {NgForOf, NgOptimizedImage} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
@@ -18,14 +19,19 @@ import {NgForOf, NgOptimizedImage} from "@angular/common";
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent implements OnInit {
-  constructor(private dashboardService: DashboardService) {}
+  constructor(private dashboardService: DashboardService,
+              private router: Router) {
+  }
 
   campaigns :Campaign[]= []
 
 
     ngOnInit() {
         this.campaigns = this.dashboardService.campaigns.value!;
-        console.log(this.campaigns)
     }
+
+  navigateToCampaign(campaignId: string){
+      this.router.navigate(['/campaign', campaignId]);
+  }
 
 }

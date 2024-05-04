@@ -11,7 +11,7 @@
           </div>
           <p class="text-xl font-bold">{{campaign.campaignName}}</p>
           <p class="text-[#425466]">{{campaign.description}}</p>
-          <button nz-button nzSize="large" nzType="primary" class="rounded-xl">See more</button>
+          <button nz-button nzSize="large" nzType="primary" class="rounded-xl" (click)="navigateToCampaign(campaign.id)">See more</button>
         </div>
       </nz-card>
 

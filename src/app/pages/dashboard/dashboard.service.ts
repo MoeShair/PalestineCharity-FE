@@ -1,24 +1,23 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {Router} from "@angular/router";
 import {BehaviorSubject, catchError, tap, throwError} from "rxjs";
-import {UserModel} from "../../auth/user.model";
+//import {UserModel} from "../../auth/user.model";
 import {Campaign} from "./campaign.model";
 
-export interface CampaignResponse {
-  campaigns:{
-      campaignName: string;
-      campaignImage: string;
-      organizationName: string;
-      goalAmount: number;
-      status: "Active" | "Suspended" | "Ended";
-      currentAmount?: number;
-      startDate: string;
-      endDate: string;
-      leaderboard: UserModel[];
-      description?: string;
-  }
-}
+// export interface CampaignResponse {
+//   campaigns:{
+//       campaignName: string;
+//       campaignImage: string;
+//       organizationName: string;
+//       goalAmount: number;
+//       status: "Active" | "Suspended" | "Ended";
+//       currentAmount?: number;
+//       startDate: string;
+//       endDate: string;
+//       leaderboard: UserModel[];
+//       description?: string;
+//   }
+// }
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +26,7 @@ export class DashboardService {
 
   campaigns = new BehaviorSubject<Campaign[] | null>(null);
 
-  constructor(private http: HttpClient,
-              private router: Router) {
+  constructor(private http: HttpClient) {
   }
 
   getCampaigns() {
@@ -47,7 +45,8 @@ export class DashboardService {
               new Date(campaign.startDate),
               new Date(campaign.endDate),
               campaign.leaderboard,
-              campaign.description
+              campaign.description,
+              campaign._id
           ))
         }
         this.campaigns.next(campaigns);
