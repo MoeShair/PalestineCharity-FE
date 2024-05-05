@@ -14,8 +14,23 @@
   </div>
   </nz-card>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <div class="w-full lg:w-3/5">
-        <app-donate></app-donate>
+    <div class="w-full">
+      <table class="border-collapse border-2 w-3/4">
+        <thead>
+        <tr>
+          <th class="border">Rank</th>
+          <th class="border">Name</th>
+          <th class="border">Amount Donated</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of leaderboard?.leaderboard; let i = index">
+          <td class="border text-center">{{ i }}</td>
+          <td class="border text-center">{{ getUserName(user) }}</td>
+          <td class="border text-center">{{ user.amountDonated }}</td>
+        </tr>
+        </tbody>
+      </table>
     </div>
 
     <div class="w-full lg:w-auto">

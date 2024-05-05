@@ -20,6 +20,16 @@ export interface CampaignResponse {
   }
 }
 
+export interface LeaderboardEntry {
+  userId: string;
+  userName?: string;
+  amountDonated: number;
+}
+
+export interface LeaderboardResponse {
+  leaderboard: LeaderboardEntry[];
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,7 +41,7 @@ export class CampaignService {
   loadCampaign(id: string) {
     return this.http.get<CampaignResponse>(`http://localhost:3000/posts/campaign/${id}`).pipe(tap(resData=>{
         const campaignData = resData.campaign;
-        console.log('Campaign data:', campaignData);
+        //console.log('Campaign data:', campaignData);
         return(new Campaign(
             campaignData.campaignName,
             campaignData.campaignImage,
@@ -53,7 +63,10 @@ export class CampaignService {
         userId:userId,
         campaignId: campaignId
       }).pipe(tap(resData=>{
-      console.log(resData)
+      //console.log(resData)
     }))
+  }
+  getLeaderboard(campaignId: string){
+    return this.http.get<LeaderboardResponse>(`http://localhost:3000/posts/${campaignId}/leaderboard`)
   }
 }

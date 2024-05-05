@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {CampaignResponse, CampaignService} from "./campaign.service";
+import {CampaignResponse, CampaignService, LeaderboardResponse} from "./campaign.service";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {DonateComponent} from "../../../components/donate/donate.component";
 import {AuthService} from "../../../auth/auth.service";
 import {Subscription} from "rxjs";
+import {NgForOf} from "@angular/common";
+import {NzTableComponent} from "ng-zorro-antd/table";
 
 @Component({
   selector: 'app-campaign',
@@ -13,7 +15,9 @@ import {Subscription} from "rxjs";
   imports: [
     NzButtonComponent,
     NzCardComponent,
-    DonateComponent
+    DonateComponent,
+    NgForOf,
+    NzTableComponent
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss'
@@ -22,6 +26,9 @@ export class CampaignComponent implements OnInit, OnDestroy{
   private userSubscription: Subscription | null = null;
   campaignId: string = "";
   campaign: CampaignResponse | null = null;
+
+  leaderboard: LeaderboardResponse | null = null
+
   constructor(private route: ActivatedRoute,
               private campaignService: CampaignService,
               private authService: AuthService) {
@@ -30,9 +37,11 @@ export class CampaignComponent implements OnInit, OnDestroy{
     this.campaignId = this.route.snapshot.params['id'];
     this.campaignService.loadCampaign(this.campaignId).subscribe(resData=>{
       this.campaign = resData;
-      console.log(this.campaign);
     });
-    console.log(this.campaign);
+    this.campaignService.getLeaderboard(this.campaignId).subscribe(resData =>{
+      this.leaderboard = resData
+      console.log(this.leaderboard)
+    })
   }
   addFavorite(){
     let userId : string | null = null
@@ -45,6 +54,9 @@ export class CampaignComponent implements OnInit, OnDestroy{
       }
     })
 
+  }
+  getUserName(user: any): string {
+    return user.userName || 'Anonymous';
   }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
