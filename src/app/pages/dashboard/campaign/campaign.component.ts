@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CampaignResponse, CampaignService} from "./campaign.service";
-import {Campaign} from "../campaign.model";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {DonateComponent} from "../../../components/donate/donate.component";
+import {AuthService} from "../../../auth/auth.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-campaign',
@@ -17,12 +18,13 @@ import {DonateComponent} from "../../../components/donate/donate.component";
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss'
 })
-export class CampaignComponent implements OnInit{
-
+export class CampaignComponent implements OnInit, OnDestroy{
+  private userSubscription: Subscription | null = null;
   campaignId: string = "";
   campaign: CampaignResponse | null = null;
   constructor(private route: ActivatedRoute,
-              private campaignService: CampaignService) {
+              private campaignService: CampaignService,
+              private authService: AuthService) {
   }
   ngOnInit() {
     this.campaignId = this.route.snapshot.params['id'];
@@ -31,5 +33,20 @@ export class CampaignComponent implements OnInit{
       console.log(this.campaign);
     });
     console.log(this.campaign);
+  }
+  addFavorite(){
+    let userId : string | null = null
+    this.userSubscription = this.authService.user.subscribe((user) =>{
+      if(user !== null){
+        userId = user.userID
+        this.campaignService.addToFavorite(userId, this.campaignId).subscribe(resData =>{
+          console.log(resData)
+        })
+      }
+    })
+
+  }
+  ngOnDestroy() {
+    this.userSubscription?.unsubscribe()
   }
 }

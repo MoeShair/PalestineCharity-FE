@@ -1,12 +1,16 @@
 export class UserModel {
     constructor(
-      private UserID: number,
+      private UserID: string,
       private Name: string,
       private Email: string,
       private Age: number,
       private Address: string
     ) {
     }
+
+  get userID(): string {
+    return this.UserID;
+  }
   // Getter for Name
   get userName(): string {
     return this.Name;

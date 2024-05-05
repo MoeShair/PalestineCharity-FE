@@ -24,6 +24,13 @@
       <span nz-icon nzType="smile" [nzTheme]="isRouteActive('/profile')? 'fill': 'outline' " style="font-size: 24px;"></span>
       <span [ngClass]="{'hide-text':isSideNavCollapsed}">Profile</span></a>
   </li>
+  <li nz-menu-item routerLink= '/favourites'
+      [routerLinkActive]="'ant-menu-item-selected'"
+      (click)="onItemClicked()">
+    <a class="flex flex-row items-center">
+      <span nz-icon nzType="book" [nzTheme]="isRouteActive('/favourites')? 'fill': 'outline' " style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text':isSideNavCollapsed}">favourites</span></a>
+  </li>
   <li nz-menu-item
       (click)="logOut()">
     <a class="flex flex-row items-center">

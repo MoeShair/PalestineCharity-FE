@@ -47,4 +47,13 @@ export class CampaignService {
         ))
     }))
   }
+  addToFavorite(userId: string, campaignId: string){
+    return this.http.post('http://localhost:3000/posts/add-favorite',
+      {
+        userId:userId,
+        campaignId: campaignId
+      }).pipe(tap(resData=>{
+      console.log(resData)
+    }))
+  }
 }

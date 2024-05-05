@@ -22,15 +22,13 @@ export const routes: Routes = [
   {
     path: 'campaign/:id',
       loadComponent: () => import('./pages/dashboard/campaign/campaign.component').then(m => m.CampaignComponent),
-      // resolve:
-      //   {
-      //     campaign: 'campaignResolver'
-      //   }
-
+  },
+  {
+    path: 'favourites',
+    loadComponent: () => import('./pages/favourite/favourite.component').then(m => m.FavouriteComponent)
   },
   {
     path: '',
-    loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
-    //resolve: {campaigns: 'dashboardResolver'}
+    loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
   }
 ];

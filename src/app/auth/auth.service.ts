@@ -7,7 +7,7 @@ import {UserModel} from "./user.model";
 
 export interface Response {
   user :{
-  UserID: number;
+  _id: string;
   Name: string;
   Email: string;
   Age: number;
@@ -55,7 +55,7 @@ export class AuthService {
           console.log('Response data:', resData);
           const userData = resData.user
           const user = new UserModel(
-              userData.UserID,
+              userData._id,
               userData.Name,
               userData.Email,
               userData.Age,
@@ -108,7 +108,7 @@ export class AuthService {
 
     }
     const user: {
-      UserID: number,
+      UserID: string,
       Name: string,
       Email: string,
       Age: number,
