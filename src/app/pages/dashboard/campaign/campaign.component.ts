@@ -6,10 +6,11 @@ import {NzCardComponent} from "ng-zorro-antd/card";
 import {DonateComponent} from "../../../components/donate/donate.component";
 import {AuthService} from "../../../auth/auth.service";
 import {Subscription} from "rxjs";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {NzTableComponent} from "ng-zorro-antd/table";
 import {PieChartComponent} from "../../../components/pie-chart/pie-chart.component";
 import {ProgressBarComponent} from "../../../components/progress-bar/progress-bar.component";
+import {FavouriteService} from "../../favourite/favourite.service";
 
 @Component({
   selector: 'app-campaign',
@@ -21,7 +22,8 @@ import {ProgressBarComponent} from "../../../components/progress-bar/progress-ba
     NgForOf,
     NzTableComponent,
     PieChartComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    NgIf
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss'
@@ -30,12 +32,15 @@ export class CampaignComponent implements OnInit, OnDestroy{
   private userSubscription: Subscription | null = null;
   campaignId: string = "";
   campaign: CampaignResponse | null = null;
+  favourite: boolean = false
+  userId : string | null = null
 
   leaderboard: LeaderboardResponse | null = null
 
   constructor(private route: ActivatedRoute,
               private campaignService: CampaignService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private favouriteService: FavouriteService) {
   }
   ngOnInit() {
     this.campaignId = this.route.snapshot.params['id'];
@@ -46,18 +51,39 @@ export class CampaignComponent implements OnInit, OnDestroy{
       this.leaderboard = resData
       console.log(this.leaderboard)
     })
-  }
-  addFavorite(){
-    let userId : string | null = null
     this.userSubscription = this.authService.user.subscribe((user) =>{
       if(user !== null){
-        userId = user.userID
-        this.campaignService.addToFavorite(userId, this.campaignId).subscribe(resData =>{
+        this.userId = user.userID
+        this.favouriteService.isFavourite(this.userId, this.campaignId).subscribe((isFavourite) => {
+            this.favourite = isFavourite;
+            console.log('Is favourite:', this.favourite);
+          },
+          (error) => {
+            console.error('Error checking favourite:', error);
+          })
+      }
+    })
+  }
+  addFavorite(){
+
+    this.userSubscription = this.authService.user.subscribe((user) =>{
+      if(user !== null){
+        this.userId = user.userID
+        this.favouriteService.addToFavorite(this.userId, this.campaignId).subscribe(resData =>{
           console.log(resData)
         })
       }
     })
-
+  }
+  removeFavourite(){
+    this.userSubscription = this.authService.user.subscribe((user) =>{
+      if(user !== null){
+        this.userId = user.userID
+        this.favouriteService.removeFavorite(this.userId, this.campaignId).subscribe(resData =>{
+          console.log(resData)
+        })
+      }
+    })
   }
   getUserName(user: any): string {
     return user.userName || 'Anonymous';

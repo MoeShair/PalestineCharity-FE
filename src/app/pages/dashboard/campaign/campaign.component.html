@@ -1,6 +1,6 @@
 <div class="sn-open flex mx-4 md:mx-48 my-6 flex-col">
   <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
-  <div class="flex justify-between">
+  <div class="flex justify-between box-border">
     <div class="flex w-50%">
       <div class="border-4 border-fuchsia-900">
         <img [src]="campaign?.campaign?.campaignImage?? '' " height="170" width="170" alt="{{campaign?.campaign?.campaignName?? ''}}">
@@ -8,8 +8,9 @@
       <h1 class="mt-5 text-3xl pl-5">{{campaign?.campaign?.campaignName?? ''}}</h1>
     </div>
     <div class="flex justify-between w-80 mt-5">
-      <button nz-button nzType="primary" class="rounded-2xl" (click)="addFavorite()">Add to favourite</button>
-      <button nz-button nzType="primary" class="rounded-2xl">Create sub-campaign</button>
+      <button *ngIf="!favourite" nz-button nzType="primary" class="rounded-2xl" (click)="addFavorite()">Add to bookmarks</button>
+      <button *ngIf="favourite" nz-button nzType="default" nzDanger class="rounded-2xl" (click)="removeFavourite()">Remove from bookmarks</button>
+      <button nz-button nzType="primary" class="rounded-2xl ml-3">Create sub-campaign</button>
     </div>
   </div>
   </nz-card>
