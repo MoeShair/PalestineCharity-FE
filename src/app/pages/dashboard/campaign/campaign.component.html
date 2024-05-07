@@ -13,6 +13,15 @@
     </div>
   </div>
   </nz-card>
+  <app-progress-bar
+    [currentAmount]="getCurrentAmount()"
+    [goalAmount]="getGoalAmount()"
+    [progress]="getProgressPercentage()"></app-progress-bar>
+  <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+    <div>
+      <app-pie-chart></app-pie-chart>
+    </div>
+  </nz-card>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="w-full">
       <table class="border-collapse border-2 w-3/4">

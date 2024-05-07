@@ -1,0 +1,13 @@
+<nz-progress [nzPercent]="progress"
+             [nzStrokeColor]="{ '0%': '#2b124c', '100%': '#854f6c' }"
+             nz-popover
+             nzPopoverTitle='Donation info'
+             [nzPopoverContent] = contentTemplate
+             nzStatus="active">
+
+</nz-progress>
+<ng-template #contentTemplate>
+  <p>Current amount: {{currentAmount}} </p>
+  <br>
+  <p>Goal amount: {{goalAmount}} </p>
+</ng-template>

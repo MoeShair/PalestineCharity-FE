@@ -65,7 +65,7 @@ nz-content {
 
 .content-margin-left {
   .sn-open {
-    transition: margin 700ms;
+    transition: margin 200ms;
     margin-left: 250px;
     margin-right: 150px;
   }
@@ -75,6 +75,6 @@ nz-content {
 
 .content-margin-anim {
   .sn-open {
-    transition: margin 500ms;
+    transition: margin 250ms;
   }
 }

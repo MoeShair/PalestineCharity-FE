@@ -8,6 +8,8 @@ import {AuthService} from "../../../auth/auth.service";
 import {Subscription} from "rxjs";
 import {NgForOf} from "@angular/common";
 import {NzTableComponent} from "ng-zorro-antd/table";
+import {PieChartComponent} from "../../../components/pie-chart/pie-chart.component";
+import {ProgressBarComponent} from "../../../components/progress-bar/progress-bar.component";
 
 @Component({
   selector: 'app-campaign',
@@ -17,7 +19,9 @@ import {NzTableComponent} from "ng-zorro-antd/table";
     NzCardComponent,
     DonateComponent,
     NgForOf,
-    NzTableComponent
+    NzTableComponent,
+    PieChartComponent,
+    ProgressBarComponent
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss'
@@ -57,6 +61,24 @@ export class CampaignComponent implements OnInit, OnDestroy{
   }
   getUserName(user: any): string {
     return user.userName || 'Anonymous';
+  }
+  getProgressPercentage(): string {
+    if (this.campaign?.campaign.goalAmount === 0) {
+      return '0';
+    }
+    return ((this.campaign?.campaign.currentAmount! / this.campaign?.campaign.goalAmount!) * 100).toFixed(1);
+  }
+  getGoalAmount(): number {
+    if (this.campaign?.campaign.goalAmount === 0 || this.campaign?.campaign.goalAmount === undefined) {
+      return 0;
+    }
+    return this.campaign?.campaign.goalAmount!
+  }
+  getCurrentAmount(): number {
+    if (this.campaign?.campaign.currentAmount === 0 || this.campaign?.campaign.currentAmount === undefined) {
+      return 0;
+    }
+    return this.campaign?.campaign.currentAmount!
   }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
