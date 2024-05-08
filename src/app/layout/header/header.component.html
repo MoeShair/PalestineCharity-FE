@@ -10,7 +10,7 @@
               stroke-linejoin="round"/>
       </svg>
     </button>
-    <a routerLink="/shop" class="block">
+    <a routerLink="/" class="block">
       <span class="italic font-extrabold text-4xl h-full">PalHope</span></a>
     <a
       routerLink="/my-websites"
@@ -24,7 +24,7 @@
 
   <div class="flex flex-row gap-3 h-8 box-border items-center md:gap-10">
     <nz-input-group [nzPrefix]="prefixIconSearch" class="rounded w-32 md:w-64">
-      <input type="text" nz-input placeholder="Search links">
+      <input type="text" [(ngModel)]="searchQuery" (input)="searchCampaigns()" nz-input placeholder="Search links">
     </nz-input-group>
     <ng-template #prefixIconSearch>
       <span nz-icon nzType="search" nzTheme="outline"></span>

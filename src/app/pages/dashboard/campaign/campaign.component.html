@@ -7,7 +7,7 @@
       </div>
       <h1 class="mt-5 text-3xl pl-5">{{campaign?.campaign?.campaignName?? ''}}</h1>
     </div>
-    <div class="flex justify-between w-80 mt-5">
+    <div class="flex items-center justify-end w-50 mt-5">
       <button *ngIf="!favourite" nz-button nzType="primary" class="rounded-2xl" (click)="addFavorite()">Add to bookmarks</button>
       <button *ngIf="favourite" nz-button nzType="default" nzDanger class="rounded-2xl" (click)="removeFavourite()">Remove from bookmarks</button>
       <button nz-button nzType="primary" class="rounded-2xl ml-3">Create sub-campaign</button>
@@ -18,14 +18,18 @@
     [currentAmount]="getCurrentAmount()"
     [goalAmount]="getGoalAmount()"
     [progress]="getProgressPercentage()"></app-progress-bar>
-  <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
-    <div>
-      <app-pie-chart></app-pie-chart>
-    </div>
-  </nz-card>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
     <div class="w-full">
-      <table class="border-collapse border-2 w-3/4">
+      <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+        <p>{{campaign?.campaign?.description}}</p>
+      </nz-card>
+      <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+        <div>
+          <app-pie-chart></app-pie-chart>
+        </div>
+      </nz-card>
+      <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+      <table class="border-collapse border-2  w-full mx-auto">
         <thead>
         <tr>
           <th class="border">Rank</th>
@@ -41,6 +45,7 @@
         </tr>
         </tbody>
       </table>
+      </nz-card>
     </div>
 
     <div class="w-full lg:w-auto">
