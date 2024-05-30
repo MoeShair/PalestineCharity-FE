@@ -13,14 +13,24 @@ export class DonateService {
 
   constructor(private http: HttpClient) { }
 
-  loggedInDonation(campaignId: string, amount: number, userId: string){
+  loggedInDonation(campaignId: string, amount: number, userId: string, anonymous: boolean){
     return this.http.post<donationResponse>('http://localhost:3000/posts/donate',
       {
         campaignId: campaignId,
         userId: userId,
-        amount: amount
+        amount: amount,
+        anonymous: anonymous
       }).pipe(tap(resData =>{
         return resData.message
+    }))
+  }
+  notLoggedInDonation(campaignId: string, amount: number){
+    return this.http.post<donationResponse>('http://localhost:3000/posts/donate',
+      {
+        campaignId: campaignId,
+        amount: amount
+      }).pipe(tap(resData =>{
+      return resData.message
     }))
   }
 }

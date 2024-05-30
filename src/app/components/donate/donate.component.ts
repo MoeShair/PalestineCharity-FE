@@ -1,10 +1,10 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
+  FormGroup, FormsModule,
   NonNullableFormBuilder,
   ReactiveFormsModule,
   Validators
@@ -16,6 +16,7 @@ import {DonateService} from "./donate.service";
 import {ActivatedRoute} from "@angular/router";
 import {UserModel} from "../../auth/user.model";
 import {Subscription} from "rxjs";
+import {NzSwitchComponent, NzSwitchModule} from "ng-zorro-antd/switch";
 
 @Component({
   selector: 'app-donate',
@@ -27,14 +28,18 @@ import {Subscription} from "rxjs";
     NzFormItemComponent,
     NzFormControlComponent,
     NzInputDirective,
-    NzButtonComponent
+    NzButtonComponent,
+    NzSwitchComponent,
+    FormsModule
   ],
   templateUrl: './donate.component.html',
-  styleUrl: './donate.component.scss'
+  styleUrl: './donate.component.scss',
+  encapsulation: ViewEncapsulation.None
 })
 export class DonateComponent implements OnDestroy{
   private userSubscription: Subscription | null = null;
   validateForm: FormGroup;
+  switchValue: boolean = false
 
   constructor(private fb: FormBuilder, private authService: AuthService,
               private donateService: DonateService, private route: ActivatedRoute) {
@@ -53,7 +58,12 @@ export class DonateComponent implements OnDestroy{
     this.userSubscription = this.authService.user.subscribe((user) =>{
       if(user !== null){
         userId = user.userID
-        this.donateService.loggedInDonation(activeRoute, amount, userId).subscribe(resData =>{
+        this.donateService.loggedInDonation(activeRoute, amount, userId, this.switchValue).subscribe(resData =>{
+          console.log(resData)
+        })
+      }
+      else{
+        this.donateService.notLoggedInDonation(activeRoute, amount).subscribe(resData =>{
           console.log(resData)
         })
       }

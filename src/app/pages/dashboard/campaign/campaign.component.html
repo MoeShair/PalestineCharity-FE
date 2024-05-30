@@ -3,7 +3,7 @@
   <div class="flex justify-between box-border">
     <div class="flex w-50%">
       <div class="border-4 border-fuchsia-900">
-        <img [src]="campaign?.campaign?.campaignImage?? '' " height="170" width="170" alt="{{campaign?.campaign?.campaignName?? ''}}">
+        <img [src]="campaign?.campaign?.campaignImage?? '' " style="max-width: 100%; max-height: 100%;" alt="{{campaign?.campaign?.campaignName?? ''}}">
       </div>
       <h1 class="mt-5 text-3xl pl-5">{{campaign?.campaign?.campaignName?? ''}}</h1>
     </div>

@@ -2,29 +2,59 @@
   <form nz-form [formGroup]="validateForm" (ngSubmit)="donate()">
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your card number!">
-        <input type="number" nz-input formControlName="CardNumber" placeholder="Card Number">
+        <div class="flex items-center space-x-2">
+          <label for="cardNumber" class="whitespace-nowrap">Card Number</label>
+          <input id="cardNumber" type="number" nz-input formControlName="CardNumber" placeholder="Card Number" class="flex-grow">
+        </div>
       </nz-form-control>
     </nz-form-item>
+    <br>
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your Name!">
-        <input type="text" nz-input formControlName="Name" placeholder="Name on the card">
+        <div class="flex items-center space-x-2">
+          <label for="name" class="whitespace-nowrap">Name on the Card</label>
+          <input id="name" type="text" nz-input formControlName="Name" placeholder="Name on the card" class="flex-grow">
+        </div>
       </nz-form-control>
     </nz-form-item>
+    <br>
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your CVV!">
-        <input type="number" nz-input formControlName="CVV" placeholder="CVV">
+        <div class="flex items-center space-x-2">
+          <label for="cvv" class="whitespace-nowrap">CVV</label>
+          <input id="cvv" type="number" nz-input formControlName="CVV" placeholder="CVV" class="flex-grow">
+        </div>
       </nz-form-control>
     </nz-form-item>
+    <br>
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input the card expiration date!">
-        <input type="text" nz-input formControlName="expirationDate" placeholder="MM/YY">
+        <div class="flex items-center space-x-2">
+          <label for="expirationDate" class="whitespace-nowrap">Expiration Date</label>
+          <input id="expirationDate" type="text" nz-input formControlName="expirationDate" placeholder="MM/YY" class="flex-grow">
+        </div>
       </nz-form-control>
     </nz-form-item>
+    <br>
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input the amount!">
-        <input type="number" nz-input formControlName="amount" placeholder="amount$">
+        <div class="flex items-center space-x-2">
+          <label for="amount" class="whitespace-nowrap">Amount</label>
+          <input id="amount" type="number" nz-input formControlName="amount" placeholder="amount$" class="flex-grow">
+        </div>
       </nz-form-control>
     </nz-form-item>
+    <br>
+    <nz-form-item>
+      <nz-form-control>
+        <div class="flex items-center space-x-2">
+          <label for="switch" class="whitespace-nowrap">Anonymous</label>
+          <nz-switch id="switch" [(ngModel)]="switchValue"></nz-switch>
+        </div>
+      </nz-form-control>
+    </nz-form-item>
+    <br>
     <button nz-button [nzType]="'primary'">Confirm</button>
   </form>
+
 </nz-card>

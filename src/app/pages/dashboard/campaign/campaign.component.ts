@@ -46,6 +46,7 @@ export class CampaignComponent implements OnInit, OnDestroy{
     this.campaignId = this.route.snapshot.params['id'];
     this.campaignService.loadCampaign(this.campaignId).subscribe(resData=>{
       this.campaign = resData;
+      console.log(resData)
     });
     this.campaignService.getLeaderboard(this.campaignId).subscribe(resData =>{
       this.leaderboard = resData
@@ -65,6 +66,7 @@ export class CampaignComponent implements OnInit, OnDestroy{
     })
   }
   addFavorite(){
+  this.favourite = true;
 
     this.userSubscription = this.authService.user.subscribe((user) =>{
       if(user !== null){
@@ -76,6 +78,7 @@ export class CampaignComponent implements OnInit, OnDestroy{
     })
   }
   removeFavourite(){
+    this.favourite = false;
     this.userSubscription = this.authService.user.subscribe((user) =>{
       if(user !== null){
         this.userId = user.userID
