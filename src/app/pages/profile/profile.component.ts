@@ -1,22 +1,37 @@
 import {Component, OnInit} from '@angular/core';
-import {ProfileService} from "./profile.service";
+import {ProfileService, User} from "./profile.service";
+import {JsonPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf,
+    JsonPipe
+  ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss'
 })
 export class ProfileComponent implements OnInit{
 
-  constructor(private profileService: ProfileService) {
-  }
+  userProfile: User | null = null
+  username: string = ""
+  userEmail: string = ''
 
-  ngOnInit() {
-    this.profileService.getUSerInfo().subscribe(resData  =>{
-      console.log(resData)
-    })
+  constructor(private profileService: ProfileService) { }
+
+  ngOnInit(): void {
+    this.profileService.getUSerInfo().subscribe(
+      (resData) => {
+        this.userProfile = resData;
+        this.username = resData?.user.Name || ''
+        this.userEmail = resData?.user.Email || ''
+        console.log(this.userProfile);
+      },
+      (error) => {
+        console.error('Error fetching user profile', error);
+      }
+    );
   }
 
 }

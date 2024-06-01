@@ -3,15 +3,17 @@
     <div class="w-full max-w-4xl bg-white shadow-md rounded-lg overflow-hidden mt-10">
       <div class="flex flex-col items-center justify-center p-6 bg-gray-800 text-white">
         <img class="h-24 w-24 rounded-full border-2 border-gray-300 mb-4" src="https://via.placeholder.com/150" alt="Profile Picture">
-        <h2 class="text-2xl font-semibold text-blue-200">John Doe</h2>
+        <div *ngIf="userProfile">
+        <h2 class="text-2xl font-semibold text-blue-200">{{username|| 'Loading...'}}</h2>
+        </div>
         <p class="text-gray-400">Software Developer</p>
         <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Customize Profile</button>
       </div>
       <div class="p-6">
         <div class="mb-6">
           <h3 class="text-gray-600 font-medium">Contact Information</h3>
-          <p class="text-gray-600 mt-1"><span class="font-medium">Email:</span> john.do.com</p>
-          <p class="text-gray-600 mt-1"><span class="font-medium">Phone:</span> +123 456 7890</p>
+          <p class="text-gray-600 mt-1"><span class="font-medium">Email:</span> {{userEmail}}</p>
+          <p class="text-gray-600 mt-1"><span class="font-medium">Phone:</span> {{userProfile?.user?.PhoneNumber!}}</p>
         </div>
         <div class="mb-6">
           <h3 class="text-gray-600 font-medium">About Me</h3>
