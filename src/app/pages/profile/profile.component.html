@@ -1,13 +1,27 @@
 <!--<div class="sn-open flex mx-4 md:mx-48 my-6 flex-col">-->
   <div class="bg-gray-100 min-h-screen flex items-center justify-center">
     <div class="w-full max-w-4xl bg-white shadow-md rounded-lg overflow-hidden mt-10">
-      <div class="flex flex-col items-center justify-center p-6 bg-gray-800 text-white">
-        <img class="h-24 w-24 rounded-full border-2 border-gray-300 mb-4" src="https://via.placeholder.com/150" alt="Profile Picture">
+      <div class="flex flex-col items-center justify-center p-6 text-white"
+           [ngStyle]="{'background-image': 'url(' + userProfile?.user?.backgroundPicture + ')', 'background-size': 'cover', 'background-position': 'center'}">
+        <img class="h-24 w-24 rounded-full border-2 border-gray-300 mb-4" src="{{userProfile?.user?.profilePicture}}" alt="Profile Picture">
         <div *ngIf="userProfile">
         <h2 class="text-2xl font-semibold text-blue-200">{{username|| 'Loading...'}}</h2>
         </div>
-        <p class="text-gray-400">Software Developer</p>
-        <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Customize Profile</button>
+        <p class="text-gray-400">{{userProfile?.user?.Role}}</p>
+        <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" (click)="showModal()">Customize Profile</button>
+        <nz-modal
+          [(nzVisible)]="isVisible"
+          [nzTitle]="modalTitle"
+          [nzContent]="modalContent"
+          [nzFooter]="null"
+          (nzOnCancel)="handleCancel()"
+        >
+          <ng-template #modalTitle>Customize your profile</ng-template>
+
+          <ng-template #modalContent>
+            <app-customize-profile></app-customize-profile>
+          </ng-template>
+        </nz-modal>
       </div>
       <div class="p-6">
         <div class="mb-6">
@@ -17,19 +31,36 @@
         </div>
         <div class="mb-6">
           <h3 class="text-gray-600 font-medium">About Me</h3>
-          <p class="text-gray-600 mt-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
+          <p class="text-gray-600 mt-1">{{userProfile?.user?.biography}}</p>
         </div>
         <div class="mb-6">
           <h3 class="text-gray-600 font-medium">Badges</h3>
           <div class="flex space-x-4 mt-1">
-            <span class="bg-yellow-300 text-gray-800 py-1 px-3 rounded-full">Badge 1</span>
-            <span class="bg-green-300 text-gray-800 py-1 px-3 rounded-full">Badge 2</span>
-            <span class="bg-blue-300 text-gray-800 py-1 px-3 rounded-full">Badge 3</span>
+            <div *ngFor="let badge of userProfile?.user?.Badges; let i = index">
+              <button
+                [ngStyle]="{'background-color': badgeColors[i % badgeColors.length]}"
+                class="text-gray-800 py-1 px-3 rounded-full"
+                nz-button
+                nzType="primary"
+                nz-popover
+                nzPopoverTitle="{{badge.badgeName}}"
+                [(nzPopoverVisible)]="popoverVisible[i]"
+                nzPopoverTrigger="click"
+                [nzPopoverContent]="contentTemplate"
+                (nzPopoverVisibleChange)="onPopoverVisibleChange(i, $event)"
+              >
+                <p>{{badge.badgeName}}</p>
+              </button>
+              <ng-template #contentTemplate>
+                <h3>{{badge.description}}</h3>
+                <p>Acquired at: {{badge.date | date: 'medium' }}</p>
+              </ng-template>
+            </div>
           </div>
         </div>
         <div>
           <h3 class="text-gray-600 font-medium">Tokens</h3>
-          <p class="text-gray-600 mt-1"><span class="font-medium">User Tokens:</span> 12345</p>
+          <p class="text-gray-600 mt-1"><span class="font-medium">User Tokens:</span> <span nz-typography> <kbd>{{userProfile?.user?.token}} </kbd></span> </p>
         </div>
       </div>
     </div>

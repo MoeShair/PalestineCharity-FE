@@ -4,7 +4,7 @@ import {AuthService} from "../../auth/auth.service";
 import {of, switchMap} from "rxjs";
 
 
-interface Badge {
+export interface Badge {
   _id: string;
   badgePic: string;
   badgeName: string;
@@ -41,13 +41,17 @@ export interface User {
   user :{
     _id: string;
     Name: string;
+    profilePicture: string;
+    biography: string;
+    backgroundPicture: string;
     Address: string;
-    Age: string; // ISO date string
+    Age: string;
     Email: string;
     token: number;
     Badges: Badge[];
-    favorite: string[]; // Array of campaign IDs
+    favorite: string[];
     PhoneNumber: string;
+    Role: string;
     Donationrecords: DonationRecord[];
   }
 }
