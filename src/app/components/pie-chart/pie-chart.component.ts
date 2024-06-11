@@ -1,7 +1,8 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseChartDirective} from "ng2-charts";
 import {ChartConfiguration, ChartData, ChartEvent, ChartType} from "chart.js";
 import {NzCardComponent} from "ng-zorro-antd/card";
+import {ChartDataService} from "./chart-data.service";
 
 @Component({
   selector: 'app-pie-chart',
@@ -13,8 +14,35 @@ import {NzCardComponent} from "ng-zorro-antd/card";
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss'
 })
-export class PieChartComponent {
+export class PieChartComponent implements OnInit{
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
+
+  @Input() campaignId: string = ''
+  donationData: any = {};
+
+  constructor(private chartService: ChartDataService) {
+  }
+  ngOnInit() {
+    this.chartService.getChartData(this.campaignId).subscribe(response => {
+      this.donationData = response;
+      this.setPieChartData();
+    })
+  }
+
+  setPieChartData() {
+    this.pieChartData = {
+      labels: this.donationData.places.map((place: { address?: string, totalDonation: number, donationRate: number }) => place.address ?? ''),
+      datasets: [
+        {
+          data: this.donationData.places.map((place: {
+            address?: string,
+            totalDonation: number,
+            donationRate: number
+          }) => place.totalDonation),
+        }
+      ]
+    }
+  }
 
   // Pie
   public pieChartOptions: ChartConfiguration['options'] = {
@@ -27,13 +55,13 @@ export class PieChartComponent {
     responsive: true,
     maintainAspectRatio: false
   };
-  public pieChartData: ChartData<'pie', number[], string | string[]> = {
-    labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
-    datasets: [
-      {
-        data: [300, 500, 100],
-      },
-    ],
+  public pieChartData: ChartData<'pie', number[], string | string[]> = <ChartData<'pie', number[], string | string[]>>{
+    // labels: [['Download', 'Sales'], ['In', 'Store', 'Sales'], 'Mail Sales'],
+    // datasets: [
+    //   {
+    //     data: [300, 500, 100],
+    //   },
+    // ],
   };
   public pieChartType: ChartType = 'pie';
 

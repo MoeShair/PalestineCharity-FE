@@ -11,6 +11,12 @@ import {NzTableComponent} from "ng-zorro-antd/table";
 import {PieChartComponent} from "../../../components/pie-chart/pie-chart.component";
 import {ProgressBarComponent} from "../../../components/progress-bar/progress-bar.component";
 import {FavouriteService} from "../../favourite/favourite.service";
+import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
+import {NzEmptyComponent} from "ng-zorro-antd/empty";
+import {NzCommentComponent, NzCommentModule} from "ng-zorro-antd/comment";
+import {NzFormItemComponent} from "ng-zorro-antd/form";
+import {FormsModule} from "@angular/forms";
+import {NzInputDirective} from "ng-zorro-antd/input";
 
 @Component({
   selector: 'app-campaign',
@@ -23,7 +29,15 @@ import {FavouriteService} from "../../favourite/favourite.service";
     NzTableComponent,
     PieChartComponent,
     ProgressBarComponent,
-    NgIf
+    NgIf,
+    NzTabSetComponent,
+    NzTabComponent,
+    NzEmptyComponent,
+    NzCommentComponent,
+    NzCommentModule,
+    NzFormItemComponent,
+    FormsModule,
+    NzInputDirective
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss'

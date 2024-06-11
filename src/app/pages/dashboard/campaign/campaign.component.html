@@ -18,34 +18,55 @@
     [currentAmount]="getCurrentAmount()"
     [goalAmount]="getGoalAmount()"
     [progress]="getProgressPercentage()"></app-progress-bar>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-    <div class="w-full">
-      <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
-        <p>{{campaign?.campaign?.description}}</p>
-      </nz-card>
-      <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
-        <div>
-          <app-pie-chart></app-pie-chart>
-        </div>
-      </nz-card>
-      <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
-      <table class="border-collapse border-2  w-full mx-auto">
-        <thead>
-        <tr>
-          <th class="border">Rank</th>
-          <th class="border">Name</th>
-          <th class="border">Amount Donated</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of leaderboard?.leaderboard; let i = index">
-          <td class="border text-center">{{ i }}</td>
-          <td class="border text-center">{{ getUserName(user) }}</td>
-          <td class="border text-center">{{ user.amountDonated }}</td>
-        </tr>
-        </tbody>
-      </table>
-      </nz-card>
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+    <div class="w-full col-span-2">
+      <nz-tabset>
+        <nz-tab nzTitle="Campaign Information">
+          <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+            <p>{{campaign?.campaign?.description}}</p>
+          </nz-card>
+          <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+            <div>
+              <app-pie-chart [campaignId]="campaignId"></app-pie-chart>
+            </div>
+          </nz-card>
+          <nz-card class="w-full rounded-2xl bg-white my-3 box-border">
+            <table class="border-collapse border-2  w-full mx-auto">
+              <thead>
+              <tr>
+                <th class="border">Rank</th>
+                <th class="border">Name</th>
+                <th class="border">Amount Donated</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let user of leaderboard?.leaderboard; let i = index">
+                <td class="border text-center">{{ i }}</td>
+                <td class="border text-center">{{ getUserName(user) }}</td>
+                <td class="border text-center">{{ user.amountDonated }}</td>
+              </tr>
+              </tbody>
+            </table>
+          </nz-card>
+        </nz-tab>
+        <nz-tab nzTitle="News Dashboard">
+          <div class="h-full flex flex-col">
+            <nz-empty></nz-empty>
+            <nz-comment>
+              <nz-comment-content class="align-bottom">
+                <nz-form-item>
+                  <textarea  nz-input rows="4"></textarea>
+                </nz-form-item>
+                <nz-form-item>
+                  <button class="mt-2" nz-button nzType="primary">
+                    Add Comment
+                  </button>
+                </nz-form-item>
+              </nz-comment-content>
+            </nz-comment>
+          </div>
+        </nz-tab>
+      </nz-tabset>
     </div>
 
     <div class="w-full lg:w-auto">
