@@ -46,6 +46,7 @@ export class DashboardService {
               new Date(campaign.endDate),
               campaign.leaderboard,
               campaign.description,
+              campaign.newsDashboard,
               campaign._id
           ))
         }

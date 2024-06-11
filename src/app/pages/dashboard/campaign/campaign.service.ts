@@ -17,6 +17,7 @@ export interface CampaignResponse {
       leaderboard: UserModel[];
       description: string;
       _id: string;
+      newsDashboard: string[];
   }
 }
 
@@ -53,20 +54,18 @@ export class CampaignService {
             new Date(campaignData.endDate),
             campaignData.leaderboard,
             campaignData.description,
+            campaignData.newsDashboard,
             campaignData._id
         ))
     }))
   }
-  // addToFavorite(userId: string, campaignId: string){
-  //   return this.http.post('http://localhost:3000/posts/add-favorite',
-  //     {
-  //       userId:userId,
-  //       campaignId: campaignId
-  //     }).pipe(tap(resData=>{
-  //     //console.log(resData)
-  //   }))
-  // }
+
   getLeaderboard(campaignId: string){
     return this.http.get<LeaderboardResponse>(`http://localhost:3000/posts/${campaignId}/leaderboard`)
+  }
+  postNewsUpdate(campaignId: string, news: string){
+    return this.http.post(`http://localhost:3000/posts/campaigns/${campaignId}/news`,{
+      news: news
+    })
   }
 }

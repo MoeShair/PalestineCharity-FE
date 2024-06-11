@@ -51,15 +51,25 @@
         </nz-tab>
         <nz-tab nzTitle="News Dashboard">
           <div class="h-full flex flex-col">
-            <nz-empty></nz-empty>
+            <h1 class="text-4xl font-bold text-gray-800 tracking-wide mb-4">
+              Campaign Updates
+            </h1>
+            @if(!campaign?.campaign?.newsDashboard?.at(0)){
+              <nz-empty></nz-empty>
+            }
+            @for(news of campaign?.campaign?.newsDashboard; track news){
+              <nz-card class="rounded-3xl shadow-lg p-6 mt-4">
+                <p class="text-2xl text-gray-700 mb-4">{{news}}</p>
+              </nz-card>
+            }
             <nz-comment>
               <nz-comment-content class="align-bottom">
                 <nz-form-item>
-                  <textarea  nz-input rows="4"></textarea>
+                  <textarea [(ngModel)]="postText" nz-input rows="4"></textarea>
                 </nz-form-item>
                 <nz-form-item>
-                  <button class="mt-2" nz-button nzType="primary">
-                    Add Comment
+                  <button class="mt-2" nz-button nzType="primary" (click)="postNewUpdate()" [nzLoading]="submitting" [disabled]="!postText">
+                    Post an update
                   </button>
                 </nz-form-item>
               </nz-comment-content>

@@ -12,10 +12,11 @@ export class Campaign{
   private _leaderboard: UserModel[];
   private _description: string;
   private _id: string;
+  private _news: string[];
 
   constructor(campaignName: string, campaignImage: string, organizationName: string, goalAmount: number,
               status: "Active" | "Suspended" | "Ended", currentAmount: number, startDate: Date, endDate: Date, leaderboard: UserModel[],
-              description: string, id: string) {
+              description: string, news: string[], id: string) {
     this._campaignName = campaignName;
     this._campaignImage = campaignImage;
     this._organizationName = organizationName;
@@ -27,6 +28,7 @@ export class Campaign{
     this._leaderboard = leaderboard;
     this._description = description;
     this._id = id;
+    this._news = news
   }
 
   get campaignName(): string {
@@ -115,5 +117,12 @@ export class Campaign{
 
   set id(value: string) {
     this._id = value;
+  }
+  get news(): string[] {
+    return this._news;
+  }
+
+  set news(value: string[]) {
+    this._news = value;
   }
 }

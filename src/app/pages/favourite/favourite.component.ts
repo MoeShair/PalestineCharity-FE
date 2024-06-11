@@ -48,6 +48,7 @@ export class FavouriteComponent implements OnInit, OnDestroy{
               new Date(campaign.endDate),
               campaign.leaderboard,
               campaign.description,
+              campaign.news,
               campaign._id
             ))
           }

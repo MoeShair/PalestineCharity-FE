@@ -17,6 +17,7 @@ import {NzCommentComponent, NzCommentModule} from "ng-zorro-antd/comment";
 import {NzFormItemComponent} from "ng-zorro-antd/form";
 import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-campaign',
@@ -48,13 +49,16 @@ export class CampaignComponent implements OnInit, OnDestroy{
   campaign: CampaignResponse | null = null;
   favourite: boolean = false
   userId : string | null = null
+  postText: string = ''
+  submitting = false;
 
   leaderboard: LeaderboardResponse | null = null
 
   constructor(private route: ActivatedRoute,
               private campaignService: CampaignService,
               private authService: AuthService,
-              private favouriteService: FavouriteService) {
+              private favouriteService: FavouriteService,
+              private msg: NzMessageService) {
   }
   ngOnInit() {
     this.campaignId = this.route.snapshot.params['id'];
@@ -122,6 +126,13 @@ export class CampaignComponent implements OnInit, OnDestroy{
       return 0;
     }
     return this.campaign?.campaign.currentAmount!
+  }
+  postNewUpdate(){
+    this.submitting = true
+    this.campaignService.postNewsUpdate(this.campaignId,this.postText).subscribe()
+    this.postText = ''
+    this.submitting = false
+    this.msg.success("Post added successfully!!")
   }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
