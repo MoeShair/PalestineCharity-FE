@@ -24,7 +24,7 @@ export class AccountCompComponent{
 
   constructor(private authService: AuthService) {
   }
-  name: string = this.authService.user.value?.userEmail || 'profile';
+  name: string = this.authService.user.value?.userName || 'profile';
 
   @Input()
   sites: { id: number, name: string }[] = [{id: 1, name: 'sd'},{id: 2, name: 'sd'},{id: 3, name: 'sd'},{id: 4, name: 'sd'}];

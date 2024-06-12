@@ -54,7 +54,7 @@ export class DashboardService {
     }))
   }
 
-  private handleError(errResponse: HttpErrorResponse) {
+  public handleError(errResponse: HttpErrorResponse) {
     let errorMessage = 'Unknown error occurred';
     if (!errResponse.error || !errResponse.error.error) {
       return throwError(() => errorMessage);

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ShopService} from "./shop.service";
 
 @Component({
   selector: 'app-shop',
@@ -8,5 +9,8 @@ import { Component } from '@angular/core';
   styleUrl: './shop.component.scss'
 })
 export class ShopComponent {
+
+  constructor(private shop: ShopService) {
+  }
 
 }

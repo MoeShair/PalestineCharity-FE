@@ -134,6 +134,7 @@ export class CustomizeProfileComponent implements OnInit{
       console.log(this.userId)
       console.log(this.biography)
       this.customizeService.updateBiography(this.userId, this.biography).subscribe()
+      this.msg.success("Updated biography successfully")
     }
     else{
       this.msg.error('U should never see this error')
