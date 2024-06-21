@@ -1,0 +1,100 @@
+<div class="sn-open flex mx-4 md:mx-48 my-6 flex-col">
+  <div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">Inventory</h1>
+
+
+      <h2 class="text-xl font-semibold mt-6 mb-2">Fonts</h2>
+    @if (fonts?.at(0)){
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <nz-card *ngFor="let font of fonts" [nzTitle]="font.name" [nzBordered]="false" class="shadow rounded">
+          <p class="{{font.name.toLowerCase()}}">example text</p>
+          <div class="flex justify-around mt-2">
+            <button nz-button nzType="primary" class="w-3/4" nzShape="round" (click)="useItem(font)">Use Item</button>
+          </div>
+        </nz-card>
+      </div>
+    } @else {
+      <nz-empty
+        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        [nzNotFoundContent]="contentTpl"
+      >
+        <ng-template #contentTpl>
+        <span>
+          You dont have any fonts yet! edit your profile with beautiful fonts from the
+          <a routerLink="/shop" class="text-purple-500">SHOP</a>
+          now
+        </span>
+        </ng-template>
+      </nz-empty>
+    }
+
+    <!--    <div *ngIf="borders">-->
+    <!--      <h2 class="text-xl font-semibold mt-6 mb-2">Borders</h2>-->
+    <!--      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">-->
+    <!--        <nz-card *ngFor="let border of borders" [nzTitle]="border.name" [nzBordered]="false">-->
+    <!--          <p>{{ border.type }}</p>-->
+    <!--          <div class="flex justify-between">-->
+    <!--            <p class="font-bold">{{ border.price }}</p>-->
+    <!--            <button nz-button nzType="primary" nzShape="round" (click)="buyItem(border.id)">Get Item</button>-->
+    <!--          </div>-->
+    <!--        </nz-card>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+      <h2 class="text-xl font-semibold mt-6 mb-2">Profile Pictures</h2>
+    @if (ProfilePics?.at(0)){
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <nz-card *ngFor="let pic of ProfilePics" [nzTitle]="pic.name" [nzBordered]="false" class="shadow rounded">
+          <div class="card-content text-center">
+            <img src="{{ pic.url }}" alt="{{ pic.name }}" class="object-cover w-full h-48 md:h-auto">
+            <div class="flex justify-around mt-2">
+              <button nz-button nzType="primary" nzShape="round" class="w-3/4" (click)="useItem(pic)">Use Item</button>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    } @else {
+      <nz-empty
+        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        [nzNotFoundContent]="contentTpl"
+      >
+        <ng-template #contentTpl>
+        <span>
+          You dont have any fonts yet! edit your profile with beautiful profile pictures from the
+          <a routerLink="/shop" class="text-purple-500">SHOP</a>
+          now
+        </span>
+        </ng-template>
+      </nz-empty>
+    }
+
+
+      <h2 class="text-xl font-semibold mt-6 mb-2">Background Pictures</h2>
+    @if (BackgroundPics?.at(0)){
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <nz-card *ngFor="let bg of BackgroundPics" [nzTitle]="bg.name" [nzBordered]="false" class="shadow rounded">
+          <div class="card-content text-center">
+            <img src="{{ bg.url }}" alt="{{ bg.name }}" class="object-cover w-full h-48 md:h-auto">
+            <div class="flex justify-around mt-2">
+              <button nz-button nzType="primary" class="w-3/4" nzShape="round" (click)="useItem(bg)">Use Item</button>
+            </div>
+          </div>
+        </nz-card>
+      </div>
+    }  @else {
+      <nz-empty
+        nzNotFoundImage="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+        [nzNotFoundContent]="contentTpl"
+      >
+        <ng-template #contentTpl>
+        <span>
+          You dont have any fonts yet! edit your profile with beautiful backgrounds from the
+          <a routerLink="/shop" class="text-purple-500">SHOP</a>
+          now
+        </span>
+        </ng-template>
+      </nz-empty>
+    }
+
+  </div>
+</div>

@@ -5,7 +5,7 @@
            [ngStyle]="{'background-image': 'url(' + userProfile?.user?.backgroundPicture + ')', 'background-size': 'cover', 'background-position': 'center'}">
         <img class="h-24 w-24 rounded-full border-2 border-gray-300 mb-4" src="{{userProfile?.user?.profilePicture}}" alt="Profile Picture">
         <div *ngIf="userProfile">
-        <h2 class="text-2xl font-semibold text-blue-200">{{username|| 'Loading...'}}</h2>
+        <h2 class="text-2xl font-semibold {{userProfile.user.font.toLowerCase()}}">{{username|| 'Loading...'}}</h2>
         </div>
         <p class="text-gray-400">{{userProfile?.user?.Role}}</p>
         <button class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" (click)="showModal()">Customize Profile</button>

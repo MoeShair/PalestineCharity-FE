@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ShopItem, ShopService} from "./shop.service";
 import {NzCardComponent} from "ng-zorro-antd/card";
-import {NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {ProfileService} from "../profile/profile.service";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {InventoryService} from "../inventory/inventory.service";
+import {catchError, map, Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-shop',
@@ -13,7 +15,8 @@ import {NzMessageService} from "ng-zorro-antd/message";
     NzCardComponent,
     NgForOf,
     NgIf,
-    NzButtonComponent
+    NzButtonComponent,
+    AsyncPipe
   ],
   templateUrl: './shop.component.html',
   styleUrl: './shop.component.scss'
@@ -28,9 +31,14 @@ export class ShopComponent implements OnInit{
 
   constructor(private shop: ShopService,
               private profileService: ProfileService,
-              private message: NzMessageService) {
+              private message: NzMessageService,
+              private inventoryService: InventoryService) {
   }
   ngOnInit() {
+    this.profileService.getUSerInfo().subscribe(response =>{
+      this.userId = response?.user._id!
+    })
+
     this.shop.getFonts().subscribe(response =>{
       if(response){
         this.fonts = response
@@ -54,10 +62,6 @@ export class ShopComponent implements OnInit{
         this.BackgroundPics = response
       }
     })
-
-    this.profileService.getUSerInfo().subscribe(response =>{
-      this.userId = response?.user._id!
-    })
   }
   buyItem(itemId: string){
     this.shop.buyItem(this.userId, itemId).subscribe(
@@ -66,8 +70,32 @@ export class ShopComponent implements OnInit{
       },
       (error) => {
         console.error('Error buying item:', error);
-        this.message.error('Failed to buy item. Please try again later.');
+        this.message.error('You already have this item!');
       })
+  }
+
+  isItemOwned(item: ShopItem): Observable<boolean> {
+    let inventoryServiceCall: Observable<any>;
+    console.log(this.userId)
+
+    switch (item.type) {
+      case 'picture':
+        inventoryServiceCall = this.inventoryService.userProfilePics(this.userId);
+        break;
+      case 'background':
+        inventoryServiceCall = this.inventoryService.userBgs(this.userId);
+        break;
+      case 'font':
+        inventoryServiceCall = this.inventoryService.userFonts(this.userId);
+        break;
+      default:
+        return of(false); // Handle unknown item types gracefully
+    }
+
+    return inventoryServiceCall.pipe(
+      map(response => response.includes(item)), // Assuming response is an array
+      catchError(() => of(false)) // Handle errors gracefully
+    );
   }
 
 }

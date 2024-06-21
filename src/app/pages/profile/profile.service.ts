@@ -51,6 +51,7 @@ export interface User {
     Badges: Badge[];
     favorite: string[];
     PhoneNumber: string;
+    font: string
     Role: string;
     Donationrecords: DonationRecord[];
   }

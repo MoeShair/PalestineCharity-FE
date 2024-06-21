@@ -28,6 +28,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/favourite/favourite.component').then(m => m.FavouriteComponent)
   },
   {
+    path: 'inventory',
+    loadComponent: () => import('./pages/inventory/inventory.component').then(m => m.InventoryComponent)
+  },
+  {
     path: '',
     loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
   }

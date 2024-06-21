@@ -10,6 +10,14 @@
       <span [ngClass]="{'hide-text': isSideNavCollapsed}">Shop</span>
     </a>
   </li>
+  <li nz-menu-item routerLink= '/inventory'
+      [routerLinkActive]="'ant-menu-item-selected'"
+      (click)="onItemClicked()">
+    <a>
+      <span nz-icon nzType="build" [nzTheme]="isRouteActive('/inventory')? 'fill': 'outline' " style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text': isSideNavCollapsed}">inventory</span>
+    </a>
+  </li>
   <li nz-menu-item routerLink= '/aboutus'
       [routerLinkActive]="'ant-menu-item-selected'"
       (click)="onItemClicked()">
