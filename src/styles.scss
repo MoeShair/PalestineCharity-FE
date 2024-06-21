@@ -2,3 +2,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Indie+Flower&display=swap');
+
+.bold {
+  font-weight: bold;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.script {
+  font-family: 'Pacifico', cursive;
+}
+
+.handwritten {
+  font-family: 'Indie Flower', cursive;
+}
+
+.bright  {
+  color: #FFFF00;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+
+.sunlight {
+  color: #FFA500;
+  text-shadow: 0 0 3px #FF0000, 0 0 5px #0000FF;
+}
+

@@ -4,6 +4,7 @@ import { ProfileService } from './profile.service';
 import { AuthService } from '../../auth/auth.service';
 import { BehaviorSubject, of } from 'rxjs';
 import { User } from './profile.service';
+import { expect } from 'chai';
 
 describe('ProfileService', () => {
   let service: ProfileService;
@@ -35,10 +36,10 @@ describe('ProfileService', () => {
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(service).to.be.ok;
   });
 
-  describe('#getUserInfo', () => {
+  describe('#getUSerInfo', () => {
     it('should return user info when the user is authenticated', () => {
       const mockUser = {
         userID: '123'
@@ -65,11 +66,11 @@ describe('ProfileService', () => {
       authServiceUserSubject.next(mockUser);
 
       service.getUSerInfo().subscribe(user => {
-        expect(user).toEqual(mockResponse);
+        expect(user).to.deep.equal(mockResponse); // Using Chai's 'deep.equal'
       });
 
       const req = httpMock.expectOne(`http://localhost:3000/posts/user/123`);
-      expect(req.request.method).toBe('GET');
+      expect(req.request.method).to.equal('GET'); // Using Chai's 'equal'
       req.flush(mockResponse);
     });
 
@@ -77,7 +78,7 @@ describe('ProfileService', () => {
       authServiceUserSubject.next(null);
 
       service.getUSerInfo().subscribe(user => {
-        expect(user).toBeNull();
+        expect(user).to.be.null; // Using Chai's 'null'
       });
 
       httpMock.expectNone(`http://localhost:3000/posts/user/123`);
