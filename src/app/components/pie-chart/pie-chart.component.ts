@@ -2,14 +2,16 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {BaseChartDirective} from "ng2-charts";
 import {ChartConfiguration, ChartData, ChartEvent, ChartType} from "chart.js";
 import {NzCardComponent} from "ng-zorro-antd/card";
-import {ChartDataService} from "./chart-data.service";
+import {ChartDataService, DonationData} from "./chart-data.service";
+import {NzEmptyComponent} from "ng-zorro-antd/empty";
 
 @Component({
   selector: 'app-pie-chart',
   standalone: true,
   imports: [
     BaseChartDirective,
-    NzCardComponent
+    NzCardComponent,
+    NzEmptyComponent
   ],
   templateUrl: './pie-chart.component.html',
   styleUrl: './pie-chart.component.scss'
@@ -18,7 +20,7 @@ export class PieChartComponent implements OnInit{
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   @Input() campaignId: string = ''
-  donationData: any = {};
+  donationData: DonationData | any = null
 
   constructor(private chartService: ChartDataService) {
   }
@@ -31,7 +33,7 @@ export class PieChartComponent implements OnInit{
 
   setPieChartData() {
     this.pieChartData = {
-      labels: this.donationData.places.map((place: { address?: string, totalDonation: number, donationRate: number }) => place.address ?? ''),
+      labels: this.donationData?.places.map((place: { address?: string, totalDonation: number, donationRate: number }) => place.address ?? ''),
       datasets: [
         {
           data: this.donationData.places.map((place: {

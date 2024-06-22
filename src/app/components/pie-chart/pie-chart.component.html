@@ -1,11 +1,15 @@
-<nz-card class="w-full h-1/4 md:w-full rounded-2xl bg-white md:h-1/4">
-  <canvas
-    baseChart
-    [data]="this.pieChartData"
-    [type]="pieChartType"
-    [options]="pieChartOptions"
-  >
-  </canvas>
-</nz-card>
+@if(!donationData){
+  <nz-empty></nz-empty>
+} @else {
+  <nz-card class="w-full h-1/4 md:w-full rounded-2xl bg-white md:h-1/4">
+    <canvas
+      baseChart
+      [data]="this.pieChartData"
+      [type]="pieChartType"
+      [options]="pieChartOptions"
+    >
+    </canvas>
+  </nz-card>
+}
 
 
