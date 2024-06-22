@@ -1,0 +1,49 @@
+<button nz-button nzType="primary" (click)="showModal()">Add Campaign</button>
+<nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <ng-container *nzModalContent>
+    <form [formGroup]="addCampaignForm" (ngSubmit)="onSubmit()">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Campaign Image</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input type="file" (change)="onFileSelected($event)" accept="image/*" formControlName="campaignImage">
+        </nz-form-control>
+        <img *ngIf="imageUrl" [src]="imageUrl" alt="Campaign image preview">
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Campaign Name</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input nz-input formControlName="campaignName" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Goal Amount</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <input nz-input formControlName="goalAmount" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">End Date</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <nz-date-picker formControlName="endDate"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6">Description</nz-form-label>
+        <nz-form-control [nzSpan]="18">
+          <textarea nz-input formControlName="description"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control [nzSpan]="18" [nzOffset]="6">
+          <button nz-button nzType="primary" type="submit">Add Campaign</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
+

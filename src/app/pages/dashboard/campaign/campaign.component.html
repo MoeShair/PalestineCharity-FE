@@ -10,7 +10,9 @@
     <div class="flex items-center justify-end w-50 mt-5">
       <button *ngIf="!favourite" nz-button nzType="primary" class="rounded-2xl" (click)="addFavorite()">Add to bookmarks</button>
       <button *ngIf="favourite" nz-button nzType="default" nzDanger class="rounded-2xl" (click)="removeFavourite()">Remove from bookmarks</button>
-      <button nz-button nzType="primary" class="rounded-2xl ml-3">Create sub-campaign</button>
+      @if(role === 'Influencer'){
+        <button nz-button nzType="primary" class="rounded-2xl ml-3">Create sub-campaign</button>
+      }
     </div>
   </div>
   </nz-card>

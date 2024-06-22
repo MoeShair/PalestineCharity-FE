@@ -18,6 +18,7 @@ import {NzFormItemComponent} from "ng-zorro-antd/form";
 import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {ProfileService} from "../../profile/profile.service";
 
 @Component({
   selector: 'app-campaign',
@@ -50,6 +51,7 @@ export class CampaignComponent implements OnInit, OnDestroy{
   favourite: boolean = false
   userId : string | null = null
   postText: string = ''
+  role: string = ''
   submitting = false;
 
   leaderboard: LeaderboardResponse | null = null
@@ -58,9 +60,13 @@ export class CampaignComponent implements OnInit, OnDestroy{
               private campaignService: CampaignService,
               private authService: AuthService,
               private favouriteService: FavouriteService,
+              private profileService: ProfileService,
               private msg: NzMessageService) {
   }
   ngOnInit() {
+    this.profileService.getUSerInfo().subscribe(response =>{
+      this.role = response?.user.Role!
+    })
     this.campaignId = this.route.snapshot.params['id'];
     this.campaignService.loadCampaign(this.campaignId).subscribe(resData=>{
       this.campaign = resData;

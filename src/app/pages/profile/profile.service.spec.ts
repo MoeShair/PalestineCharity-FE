@@ -59,6 +59,7 @@ describe('ProfileService', () => {
           favorite: [],
           PhoneNumber: '1234567890',
           Role: 'user',
+          font: 'bold',
           Donationrecords: []
         }
       };

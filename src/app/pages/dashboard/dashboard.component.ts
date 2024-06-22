@@ -5,6 +5,7 @@ import {DashboardService} from "./dashboard.service";
 import {Campaign} from "./campaign.model";
 import {NgForOf, NgOptimizedImage} from "@angular/common";
 import {Router} from "@angular/router";
+import {AddCampaignComponent} from "../../components/add-campaign/add-campaign.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +14,8 @@ import {Router} from "@angular/router";
     NzCardComponent,
     NzButtonComponent,
     NgForOf,
-    NgOptimizedImage
+    NgOptimizedImage,
+    AddCampaignComponent
   ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
