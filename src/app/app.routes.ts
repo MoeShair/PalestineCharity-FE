@@ -28,6 +28,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/my-campaigns/my-campaigns.component').then(m => m.MyCampaignsComponent),
   },
   {
+    path: 'my-SubCampaigns',
+    loadComponent: () => import('./pages/my-sub-campaigns/my-sub-campaigns.component').then(m => m.MySubCampaignsComponent),
+  },
+  {
     path: 'favourites',
     loadComponent: () => import('./pages/favourite/favourite.component').then(m => m.FavouriteComponent)
   },

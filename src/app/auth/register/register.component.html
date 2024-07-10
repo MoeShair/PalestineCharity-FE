@@ -1,0 +1,51 @@
+<div class="flex items-center justify-center w-full">
+  <form nz-form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="w-full">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Name</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="Name" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Email</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="Email" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Password</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input type="password" nz-input formControlName="Password" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Date of Birth</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <nz-date-picker formControlName="Age"></nz-date-picker>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Country</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <input nz-input formControlName="Address" />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="6">Role</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <nz-select formControlName="Role">
+          <nz-option nzValue="Organization" nzLabel="Organization"></nz-option>
+          <nz-option nzValue="Influencer" nzLabel="Influencer"></nz-option>
+          <nz-option nzValue="Donor" nzLabel="Donor"></nz-option>
+          <nz-option nzValue="Admin" nzLabel="Admin"></nz-option>
+        </nz-select>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control [nzSpan]="14" [nzOffset]="6">
+        <button nz-button nzType="primary">Register</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>
+

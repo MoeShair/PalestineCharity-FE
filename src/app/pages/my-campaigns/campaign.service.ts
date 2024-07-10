@@ -26,7 +26,7 @@ export interface MyCampResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignService {
+export class MyCampaignService {
 
   constructor(private http: HttpClient) { }
 

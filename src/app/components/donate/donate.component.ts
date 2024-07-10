@@ -28,6 +28,7 @@ import {NzSwitchComponent, NzSwitchModule} from "ng-zorro-antd/switch";
     NzFormItemComponent,
     NzFormControlComponent,
     NzInputDirective,
+    NzSwitchModule,
     NzButtonComponent,
     NzSwitchComponent,
     FormsModule
@@ -39,7 +40,7 @@ import {NzSwitchComponent, NzSwitchModule} from "ng-zorro-antd/switch";
 export class DonateComponent implements OnDestroy{
   private userSubscription: Subscription | null = null;
   validateForm: FormGroup;
-  switchValue: boolean = false
+  // switchValue: boolean = false
 
   constructor(private fb: FormBuilder, private authService: AuthService,
               private donateService: DonateService, private route: ActivatedRoute) {
@@ -48,17 +49,24 @@ export class DonateComponent implements OnDestroy{
       Name: ['', [Validators.required]],
       CVV: ['', [Validators.required]],
       expirationDate: ['', [Validators.required]],
-      amount: ['', [Validators.required]]
+      amount: ['', [Validators.required]],
+      switchValue: [false]
     });
   }
+
+  // test () {
+  //   console.log('inn: ', this.switchValue)
+  // }
   donate(){
     let activeRoute: string = this.route.snapshot.params['id'];
     let amount = this.validateForm.value.amount
     let userId : string | null = null
+    let switchValue = this.validateForm.get('switchValue')?.value;
     this.userSubscription = this.authService.user.subscribe((user) =>{
       if(user !== null){
+        console.log(switchValue)
         userId = user.userID
-        this.donateService.loggedInDonation(activeRoute, amount, userId, this.switchValue).subscribe(resData =>{
+        this.donateService.loggedInDonation(activeRoute, amount, userId, switchValue).subscribe(resData =>{
           console.log(resData)
         })
       }
@@ -72,4 +80,5 @@ export class DonateComponent implements OnDestroy{
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
   }
+
 }

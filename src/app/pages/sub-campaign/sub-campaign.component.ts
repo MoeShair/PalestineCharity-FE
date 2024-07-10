@@ -1,55 +1,50 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {CampaignResponse, CampaignService, LeaderboardResponse} from "./campaign.service";
+import { Component } from '@angular/core';
+import {AddSubcampaignComponent} from "../../components/add-subcampaign/add-subcampaign.component";
+import {DonateComponent} from "../../components/donate/donate.component";
+import {NgForOf, NgIf} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCardComponent} from "ng-zorro-antd/card";
-import {DonateComponent} from "../../../components/donate/donate.component";
-import {AuthService} from "../../../auth/auth.service";
-import {Subscription} from "rxjs";
-import {NgForOf, NgIf} from "@angular/common";
-import {NzTableComponent} from "ng-zorro-antd/table";
-import {PieChartComponent} from "../../../components/pie-chart/pie-chart.component";
-import {ProgressBarComponent} from "../../../components/progress-bar/progress-bar.component";
-import {FavouriteService} from "../../favourite/favourite.service";
-import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
+import {NzCommentComponent, NzCommentContentDirective} from "ng-zorro-antd/comment";
 import {NzEmptyComponent} from "ng-zorro-antd/empty";
-import {NzCommentComponent, NzCommentModule} from "ng-zorro-antd/comment";
 import {NzFormItemComponent} from "ng-zorro-antd/form";
-import {FormsModule} from "@angular/forms";
 import {NzInputDirective} from "ng-zorro-antd/input";
+import {NzTabComponent, NzTabSetComponent} from "ng-zorro-antd/tabs";
+import {PieChartComponent} from "../../components/pie-chart/pie-chart.component";
+import {ProgressBarComponent} from "../../components/progress-bar/progress-bar.component";
+import {ReactiveFormsModule} from "@angular/forms";
+import {Subscription} from "rxjs";
+import {CampaignResponse, CampaignService, LeaderboardResponse} from "../dashboard/campaign/campaign.service";
+import {ActivatedRoute} from "@angular/router";
+import {AuthService} from "../../auth/auth.service";
+import {FavouriteService} from "../favourite/favourite.service";
+import {ProfileService} from "../profile/profile.service";
 import {NzMessageService} from "ng-zorro-antd/message";
-import {ProfileService} from "../../profile/profile.service";
-import {AddSubcampaignComponent} from "../../../components/add-subcampaign/add-subcampaign.component";
-import {MySubCampaignsService} from "../../my-sub-campaigns/my-sub-campaigns.service";
-import {MyCampaignsComponent} from "../../my-campaigns/my-campaigns.component";
-import {MyCampaignService} from "../../my-campaigns/campaign.service";
 
 @Component({
-  selector: 'app-campaign',
+  selector: 'app-sub-campaign',
   standalone: true,
   imports: [
-    NzButtonComponent,
-    NzCardComponent,
+    AddSubcampaignComponent,
     DonateComponent,
     NgForOf,
-    NzTableComponent,
+    NgIf,
+    NzButtonComponent,
+    NzCardComponent,
+    NzCommentComponent,
+    NzCommentContentDirective,
+    NzEmptyComponent,
+    NzFormItemComponent,
+    NzInputDirective,
+    NzTabComponent,
+    NzTabSetComponent,
     PieChartComponent,
     ProgressBarComponent,
-    NgIf,
-    NzTabSetComponent,
-    NzTabComponent,
-    NzEmptyComponent,
-    NzCommentComponent,
-    NzCommentModule,
-    NzFormItemComponent,
-    FormsModule,
-    NzInputDirective,
-    AddSubcampaignComponent
+    ReactiveFormsModule
   ],
-  templateUrl: './campaign.component.html',
-  styleUrl: './campaign.component.scss'
+  templateUrl: './sub-campaign.component.html',
+  styleUrl: './sub-campaign.component.scss'
 })
-export class CampaignComponent implements OnInit, OnDestroy{
+export class SubCampaignComponent {
   private userSubscription: Subscription | null = null;
   campaignId: string = "";
   campaign: CampaignResponse | null = null;
@@ -58,7 +53,6 @@ export class CampaignComponent implements OnInit, OnDestroy{
   postText: string = ''
   role: string = ''
   submitting = false;
-  myCampaign: boolean = false
 
   leaderboard: LeaderboardResponse | null = null
 
@@ -67,13 +61,11 @@ export class CampaignComponent implements OnInit, OnDestroy{
               private authService: AuthService,
               private favouriteService: FavouriteService,
               private profileService: ProfileService,
-              private myCam: MyCampaignService,
               private msg: NzMessageService) {
   }
   ngOnInit() {
     this.profileService.getUSerInfo().subscribe(response =>{
       this.role = response?.user.Role!
-      this.isTheOrganization()
     })
     this.campaignId = this.route.snapshot.params['id'];
     this.campaignService.loadCampaign(this.campaignId).subscribe(resData=>{
@@ -98,7 +90,7 @@ export class CampaignComponent implements OnInit, OnDestroy{
     })
   }
   addFavorite(){
-  this.favourite = true;
+    this.favourite = true;
 
     this.userSubscription = this.authService.user.subscribe((user) =>{
       if(user !== null){
@@ -147,16 +139,6 @@ export class CampaignComponent implements OnInit, OnDestroy{
     this.postText = ''
     this.submitting = false
     this.msg.success("Post added successfully!!")
-  }
-  isTheOrganization(){
-    this.myCam.getOrganizationCampaigns(this.userId!).subscribe(resData=>{
-      for(let campaign of resData.campaigns){
-        if(campaign._id == this.campaignId){
-          this.myCampaign = true
-        }
-      }
-
-    })
   }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()

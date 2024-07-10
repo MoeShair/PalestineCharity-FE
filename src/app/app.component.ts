@@ -15,12 +15,10 @@ import {DashboardService} from "./pages/dashboard/dashboard.service";
 export class AppComponent implements OnInit {
   title = 'PalestineCharity-FE';
 
-  constructor(private authService: AuthService,
-              private dashboardService: DashboardService) {
+  constructor(private authService: AuthService) {
   }
 
     ngOnInit() {
-        this.dashboardService.getCampaigns().subscribe(resdata => console.log(resdata));
         this.authService.autoLogin();
     }
 }

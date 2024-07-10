@@ -1,22 +1,7 @@
-<button nz-button nzType="primary" (click)="showModal()">Add Campaign</button>
+<button nz-button nzType="primary" (click)="showModal()" class="rounded-2xl ml-3">Create sub-campaign</button>
 <nz-modal [(nzVisible)]="isVisible" nzTitle="The first Modal" (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
   <ng-container *nzModalContent>
-    <form [formGroup]="addCampaignForm" (ngSubmit)="onSubmit()">
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">Campaign Image</nz-form-label>
-        <nz-form-control [nzSpan]="18">
-          <input type="file" (change)="onFileSelected($event)" accept="image/*" formControlName="campaignImage">
-        </nz-form-control>
-        <img *ngIf="imageUrl" [src]="imageUrl" alt="Campaign image preview">
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-label [nzSpan]="6">Campaign Name</nz-form-label>
-        <nz-form-control [nzSpan]="18">
-          <input nz-input formControlName="campaignName" />
-        </nz-form-control>
-      </nz-form-item>
-
+    <form [formGroup]="addSubCampaignForm" (ngSubmit)="onSubmit()">
       <nz-form-item>
         <nz-form-label [nzSpan]="6">Goal Amount</nz-form-label>
         <nz-form-control [nzSpan]="18">
@@ -40,7 +25,7 @@
 
       <nz-form-item>
         <nz-form-control [nzSpan]="18" [nzOffset]="6">
-          <button nz-button nzType="primary" type="submit">Add Campaign</button>
+          <button nz-button nzType="primary">Create Sub-Campaign</button>
         </nz-form-control>
       </nz-form-item>
     </form>
@@ -49,4 +34,3 @@
     <button (click)="handleCancel()">cancel</button>
   </ng-container>
 </nz-modal>
-

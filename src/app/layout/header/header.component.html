@@ -55,7 +55,7 @@
       </button>
       <nz-modal [(nzVisible)]="isVisible" nzTitle="Register now" (nzOnCancel)="handleCancel()">
         <ng-container *nzModalContent>
-          <app-auth [mode]="'signUp'"></app-auth>
+          <app-register></app-register>
         </ng-container>
         <ng-container *nzModalFooter>
           <button (click)="handleCancel()">cancel</button>

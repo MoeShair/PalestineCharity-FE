@@ -39,13 +39,24 @@
       <span nz-icon nzType="book" [nzTheme]="isRouteActive('/favourites')? 'fill': 'outline' " style="font-size: 24px;"></span>
       <span [ngClass]="{'hide-text':isSideNavCollapsed}">favourites</span></a>
   </li>
-  <li nz-menu-item routerLink= '/my-campaigns'
-      [routerLinkActive]="'ant-menu-item-selected'"
-      (click)="onItemClicked()">
-    <a class="flex flex-row items-center">
-      <span nz-icon nzType="database" [nzTheme]="isRouteActive('/my-campaigns')? 'fill': 'outline' " style="font-size: 24px;"></span>
-      <span [ngClass]="{'hide-text':isSideNavCollapsed}">my-campaigns</span></a>
-  </li>
+  @if(role == 'Organization'){
+    <li nz-menu-item routerLink= '/my-campaigns'
+        [routerLinkActive]="'ant-menu-item-selected'"
+        (click)="onItemClicked()">
+      <a class="flex flex-row items-center">
+        <span nz-icon nzType="database" [nzTheme]="isRouteActive('/my-campaigns')? 'fill': 'outline' " style="font-size: 24px;"></span>
+        <span [ngClass]="{'hide-text':isSideNavCollapsed}">My Campaigns</span></a>
+    </li>
+  }
+  @if(role == 'Influencer'){
+    <li nz-menu-item routerLink= '/my-SubCampaigns'
+        [routerLinkActive]="'ant-menu-item-selected'"
+        (click)="onItemClicked()">
+      <a class="flex flex-row items-center">
+        <span nz-icon nzType="database" [nzTheme]="isRouteActive('/my-SubCampaigns')? 'fill': 'outline' " style="font-size: 24px;"></span>
+        <span [ngClass]="{'hide-text':isSideNavCollapsed}">My Sub-Campaigns</span></a>
+    </li>
+  }
   <li nz-menu-item
       (click)="logOut()">
     <a class="flex flex-row items-center">

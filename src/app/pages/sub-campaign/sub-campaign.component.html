@@ -1,0 +1,88 @@
+<!--<div class="sn-open flex mx-4 md:mx-48 my-6 flex-col">-->
+<!--  <nz-card class="w-full rounded-2xl bg-transparent my-3 box-border min-h-[500px]" [style.backgroundImage]="'url(' + (campaign?.campaign?.campaignImage ?? '') + ')'">-->
+<!--    <div class="absolute inset-0 bg-gradient-to-r from-transparent to-black"></div>-->
+<!--    <div class="flex justify-between box-border">-->
+<!--      <div class="flex w-50%">-->
+<!--        <h1 class="mt-5 text-3xl pl-5">{{campaign?.campaign?.campaignName ?? ''}}</h1>-->
+<!--      </div>-->
+<!--      <div class="flex items-center justify-end w-50 mt-5">-->
+<!--        <button *ngIf="!favourite" nz-button nzType="primary" class="rounded-2xl" (click)="addFavorite()">Add to bookmarks</button>-->
+<!--        <button *ngIf="favourite" nz-button nzType="default" nzDanger class="rounded-2xl" (click)="removeFavourite()">Remove from bookmarks</button>-->
+<!--        @if(role === 'Influencer'){-->
+<!--          <app-add-subcampaign [campaignName]="campaign?.campaign?.campaignName!"-->
+<!--                               [campaignId]="campaign?.campaign?._id!"></app-add-subcampaign>-->
+<!--        }-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </nz-card>-->
+<!--  <app-progress-bar-->
+<!--    [currentAmount]="getCurrentAmount()"-->
+<!--    [goalAmount]="getGoalAmount()"-->
+<!--    [progress]="getProgressPercentage()"></app-progress-bar>-->
+<!--  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">-->
+<!--    <div class="w-full col-span-2">-->
+<!--      <nz-tabset>-->
+<!--        <nz-tab nzTitle="Campaign Information">-->
+<!--          <nz-card class="w-full rounded-2xl bg-white my-3 box-border">-->
+<!--            <p>{{campaign?.campaign?.description}}</p>-->
+<!--          </nz-card>-->
+<!--          <nz-card class="w-full rounded-2xl bg-white my-3 box-border">-->
+<!--            <div>-->
+<!--              <app-pie-chart [campaignId]="campaignId"></app-pie-chart>-->
+<!--            </div>-->
+<!--          </nz-card>-->
+<!--          <nz-card class="w-full rounded-2xl bg-white my-3 box-border">-->
+<!--            <table class="border-collapse border-2  w-full mx-auto">-->
+<!--              <thead>-->
+<!--              <tr>-->
+<!--                <th class="border">Rank</th>-->
+<!--                <th class="border">Name</th>-->
+<!--                <th class="border">Amount Donated</th>-->
+<!--              </tr>-->
+<!--              </thead>-->
+<!--              <tbody>-->
+<!--              <tr *ngFor="let user of leaderboard?.leaderboard; let i = index">-->
+<!--                <td class="border text-center">{{ i }}</td>-->
+<!--                <td class="border text-center">{{ getUserName(user) }}</td>-->
+<!--                <td class="border text-center">{{ user.amountDonated }}</td>-->
+<!--              </tr>-->
+<!--              </tbody>-->
+<!--            </table>-->
+<!--          </nz-card>-->
+<!--        </nz-tab>-->
+<!--        <nz-tab nzTitle="News Dashboard">-->
+<!--          <div class="h-full flex flex-col">-->
+<!--            <h1 class="text-4xl font-bold text-gray-800 tracking-wide mb-4">-->
+<!--              Campaign Updates-->
+<!--            </h1>-->
+<!--            @if(!campaign?.campaign?.newsDashboard?.at(0)){-->
+<!--              <nz-empty></nz-empty>-->
+<!--            }-->
+<!--            @for(news of campaign?.campaign?.newsDashboard; track news){-->
+<!--              <nz-card class="rounded-3xl shadow-lg p-6 mt-4">-->
+<!--                <p class="text-2xl text-gray-700 mb-4">{{news}}</p>-->
+<!--              </nz-card>-->
+<!--            }-->
+<!--            <nz-comment>-->
+<!--              <nz-comment-content class="align-bottom">-->
+<!--                <nz-form-item>-->
+<!--                  <textarea [(ngModel)]="postText" nz-input rows="4"></textarea>-->
+<!--                </nz-form-item>-->
+<!--                <nz-form-item>-->
+<!--                  <button class="mt-2" nz-button nzType="primary" (click)="postNewUpdate()" [nzLoading]="submitting" [disabled]="!postText">-->
+<!--                    Post an update-->
+<!--                  </button>-->
+<!--                </nz-form-item>-->
+<!--              </nz-comment-content>-->
+<!--            </nz-comment>-->
+<!--          </div>-->
+<!--        </nz-tab>-->
+<!--      </nz-tabset>-->
+<!--    </div>-->
+
+<!--    <div class="w-full lg:w-auto">-->
+<!--      <app-donate></app-donate>-->
+<!--    </div>-->
+
+<!--  </div>-->
+<!--</div>-->

@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {DomSanitizer} from "@angular/platform-browser";
 import {NzMessageService} from "ng-zorro-antd/message";
-import {NzModalComponent, NzModalContentDirective} from "ng-zorro-antd/modal";
+import {NzModalComponent, NzModalContentDirective, NzModalFooterDirective} from "ng-zorro-antd/modal";
 import {NgIf} from "@angular/common";
 import {NzFormControlComponent, NzFormItemComponent, NzFormLabelComponent} from "ng-zorro-antd/form";
 import {NzInputDirective} from "ng-zorro-antd/input";
@@ -27,7 +27,8 @@ import {Router} from "@angular/router";
     NzFormControlComponent,
     NzInputDirective,
     NzColDirective,
-    NzDatePickerComponent
+    NzDatePickerComponent,
+    NzModalFooterDirective
   ],
   templateUrl: './add-campaign.component.html',
   styleUrl: './add-campaign.component.scss'

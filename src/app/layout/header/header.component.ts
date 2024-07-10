@@ -11,12 +11,13 @@ import {AccountCompComponent} from "./account-comp/account-comp.component";
 import {FormsModule} from "@angular/forms";
 import {SearchApiService} from "./search-api.service";
 import {debounceTime, distinctUntilChanged, of, Subject, Subscription, switchMap} from "rxjs";
+import {RegisterComponent} from "../../auth/register/register.component";
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
-    CommonModule, NgOptimizedImage, RouterLink, RouterLinkActive, NzInputModule, NotificationsComponent, NzIconModule, AuthComponent, NzModalModule, AccountCompComponent, FormsModule
+    CommonModule, NgOptimizedImage, RouterLink, RouterLinkActive, NzInputModule, NotificationsComponent, NzIconModule, AuthComponent, NzModalModule, AccountCompComponent, FormsModule, RegisterComponent
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'

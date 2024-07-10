@@ -1,4 +1,4 @@
-import {Component, HostListener, Input} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 import {NzMenuDirective, NzMenuItemComponent, NzSubMenuComponent} from "ng-zorro-antd/menu";
 import {NzIconDirective} from "ng-zorro-antd/icon";
 import {NzDrawerComponent, NzDrawerPlacement} from "ng-zorro-antd/drawer";
@@ -6,6 +6,7 @@ import {LayoutSiderService} from "../layout-sider.service";
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {NgClass} from "@angular/common";
 import {AuthService} from "../../auth/auth.service";
+import {ProfileService} from "../../pages/profile/profile.service";
 
 @Component({
   selector: 'app-side-nav',
@@ -23,11 +24,15 @@ import {AuthService} from "../../auth/auth.service";
   templateUrl: './side-nav.component.html',
   styleUrl: './side-nav.component.scss'
 })
-export class SideNavComponent {
+export class SideNavComponent implements OnInit{
+
+  role: string = ''
+
   constructor(private siderService: LayoutSiderService,
               private router: Router,
               private route: ActivatedRoute,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private profileService: ProfileService) {
   }
   @Input()
   isSideNavCollapsed = false;
@@ -39,6 +44,9 @@ export class SideNavComponent {
   innerWidth:any;
   ngOnInit() {
     this.innerWidth = window.innerWidth;
+    this.profileService.getUSerInfo().subscribe(response =>{
+      this.role = response?.user.Role!
+    })
   }
   @HostListener('window:resize', ['$event'])
   onResized() {

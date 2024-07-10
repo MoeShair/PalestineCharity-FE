@@ -1,45 +1,94 @@
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import form modules
-
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShopComponent } from './shop.component';
-import { By } from '@angular/platform-browser'; // For querying elements
+import { ShopService, ShopItem } from './shop.service';
+import { ProfileService } from '../profile/profile.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { InventoryService } from '../inventory/inventory.service';
+import { of, throwError } from 'rxjs';
 
 describe('ShopComponent', () => {
   let component: ShopComponent;
   let fixture: ComponentFixture<ShopComponent>;
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ShopComponent ],
-      imports: [FormsModule, ReactiveFormsModule] // Add form modules for form-based components
-    })
-      .compileComponents();
+  let shopService: jasmine.SpyObj<ShopService>;
+  let profileService: jasmine.SpyObj<ProfileService>;
+  let messageService: jasmine.SpyObj<NzMessageService>;
+  let inventoryService: jasmine.SpyObj<InventoryService>;
 
-  });
+  beforeEach(async () => {
+    const shopServiceSpy = jasmine.createSpyObj('ShopService', ['getFonts', 'getProfilePics', 'getBackgroundPics', 'buyItem']);
+    const profileServiceSpy = jasmine.createSpyObj('ProfileService', ['getUSerInfo']);
+    const messageServiceSpy = jasmine.createSpyObj('NzMessageService', ['success', 'error']);
+    const inventoryServiceSpy = jasmine.createSpyObj('InventoryService', ['userProfilePics', 'userBgs', 'userFonts']);
 
-  beforeEach(() => {
+    await TestBed.configureTestingModule({
+      imports: [ShopComponent],
+      providers: [
+        { provide: ShopService, useValue: shopServiceSpy },
+        { provide: ProfileService, useValue: profileServiceSpy },
+        { provide: NzMessageService, useValue: messageServiceSpy },
+        { provide: InventoryService, useValue: inventoryServiceSpy }
+      ]
+    }).compileComponents();
+
     fixture = TestBed.createComponent(ShopComponent);
     component = fixture.componentInstance;
+    shopService = TestBed.inject(ShopService) as jasmine.SpyObj<ShopService>;
+    profileService = TestBed.inject(ProfileService) as jasmine.SpyObj<ProfileService>;
+    messageService = TestBed.inject(NzMessageService) as jasmine.SpyObj<NzMessageService>;
+    inventoryService = TestBed.inject(InventoryService) as jasmine.SpyObj<InventoryService>;
+
+    // @ts-ignore
+    profileService.getUSerInfo.and.returnValue(of({ user: { _id: '123' } }));
+    shopService.getFonts.and.returnValue(of([{ id: 'font1', name: 'Font One', type: 'font', price: 10 }]));
+    shopService.getProfilePics.and.returnValue(of([{ id: 'profilePic1', name: 'Profile Pic One', type: 'picture', price: 15 }]));
+    shopService.getBackgroundPics.and.returnValue(of([{ id: 'bg1', name: 'Background One', type: 'background', price: 20 }]));
+
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  // Add other unit tests for specific functionalities
-
-  it('should render a title "My Shop"', () => {
-    const titleElement = fixture.debugElement.query(By.css('h1')); // Query the h1 element
-    expect(titleElement.nativeElement.textContent).toContain('My Shop'); // Check title content
+  it('should initialize with user info and shop items', () => {
+    expect(component.userId).toBe('123');
+    expect(component.fonts).toEqual([{ id: 'font1', name: 'Font One', type: 'font', price: 10 }]);
+    expect(component.ProfilePics).toEqual([{ id: 'profilePic1', name: 'Profile Pic One', type: 'picture', price: 15 }]);
+    expect(component.BackgroundPics).toEqual([{ id: 'bg1', name: 'Background One', type: 'background', price: 20 }]);
   });
 
-  it('should show a list of products (assuming ShopComponent has a product list)', () => {
-    // Assuming there's a product list element with a specific class
-    const productList = fixture.debugElement.query(By.css('.product-list'));
-    expect(productList).toBeTruthy(); // Check if product list exists
+  it('should buy an item successfully', () => {
+    // @ts-ignore
+    shopService.buyItem.and.returnValue(of(null));
+    component.userId = '123';
+
+    component.buyItem('item1');
+
+    expect(shopService.buyItem).toHaveBeenCalledWith('123', 'item1');
+    expect(messageService.success).toHaveBeenCalledWith('Item purchased successfully!');
   });
 
-  // Add tests for form behavior (if ShopComponent has a form)
+  it('should handle buy item error', () => {
+    shopService.buyItem.and.returnValue(throwError('Error buying item'));
+    component.userId = '123';
+
+    component.buyItem('item1');
+
+    expect(shopService.buyItem).toHaveBeenCalledWith('123', 'item1');
+    expect(messageService.error).toHaveBeenCalledWith('You already have this item!');
+  });
 
 
+  it('should handle error when checking if an item is owned', (done) => {
+    inventoryService.userProfilePics.and.returnValue(throwError('Error fetching inventory'));
+
+    const item: ShopItem = { id: 'profilePic1', name: 'Profile Pic One', type: 'picture', price: 15 };
+
+    component.isItemOwned(item).subscribe(isOwned => {
+      expect(isOwned).toBeFalse();
+      done();
+    });
+
+    expect(inventoryService.userProfilePics).toHaveBeenCalledWith('123');
+  });
 });
