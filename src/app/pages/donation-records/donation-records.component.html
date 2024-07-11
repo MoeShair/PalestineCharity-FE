@@ -1,0 +1,29 @@
+<div class="sn-open flex mx-4 md:mx-48 my-6 flex-col">
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-2xl font-bold mb-6 text-center">Donation Records</h1>
+  <nz-table
+    [nzData]="donationRecords"
+    [nzLoading]="loading"
+    nzBordered
+    nzSize="middle"
+    class="border-collapse border-2  w-full mx-auto"
+  >
+    <thead>
+    <tr>
+      <th nzWidth="25%" class="text-center">Campaign</th>
+      <th nzWidth="25%" class="text-center">Amount</th>
+      <th nzWidth="25%" class="text-center">Tokens Earned</th>
+      <th nzWidth="25%" class="text-center">Donation Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let record of donationRecords">
+      <td class="border text-center">{{ record.campaign.campaignName }}</td>
+      <td class="border text-center">{{ record.amount }}</td>
+      <td class="border text-center">{{ record.tokensEarned }}</td>
+      <td class="border text-center">{{ record.donationDate | date: 'shortDate' }}</td>
+    </tr>
+    </tbody>
+  </nz-table>
+</div>
+</div>

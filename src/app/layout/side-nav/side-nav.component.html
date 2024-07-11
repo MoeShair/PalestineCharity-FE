@@ -32,6 +32,13 @@
       <span nz-icon nzType="smile" [nzTheme]="isRouteActive('/profile')? 'fill': 'outline' " style="font-size: 24px;"></span>
       <span [ngClass]="{'hide-text':isSideNavCollapsed}">Profile</span></a>
   </li>
+  <li nz-menu-item routerLink= '/donation-records'
+      [routerLinkActive]="'ant-menu-item-selected'"
+      (click)="onItemClicked()">
+    <a class="flex flex-row items-center">
+      <span nz-icon nzType="money-collect" [nzTheme]="isRouteActive('/donation-records')? 'fill': 'outline' " style="font-size: 24px;"></span>
+      <span [ngClass]="{'hide-text':isSideNavCollapsed}">Donation Records</span></a>
+  </li>
   <li nz-menu-item routerLink= '/favourites'
       [routerLinkActive]="'ant-menu-item-selected'"
       (click)="onItemClicked()">

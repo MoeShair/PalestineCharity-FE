@@ -29,7 +29,7 @@ interface Campaign {
   __v: number;
 }
 
-interface DonationRecord {
+export interface DonationRecord {
   _id: string;
   campaign: Campaign;
   amount: number;
