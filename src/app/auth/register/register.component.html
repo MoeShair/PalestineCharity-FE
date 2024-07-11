@@ -27,7 +27,9 @@
     <nz-form-item>
       <nz-form-label [nzSpan]="6">Country</nz-form-label>
       <nz-form-control [nzSpan]="14">
-        <input nz-input formControlName="Address" />
+        <nz-select id="Address" formControlName="Address" nzShowSearch nzAllowClear nzPlaceHolder="Select a country">
+          <nz-option *ngFor="let country of countries" [nzValue]="country" [nzLabel]="country"></nz-option>
+        </nz-select>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
@@ -37,7 +39,6 @@
           <nz-option nzValue="Organization" nzLabel="Organization"></nz-option>
           <nz-option nzValue="Influencer" nzLabel="Influencer"></nz-option>
           <nz-option nzValue="Donor" nzLabel="Donor"></nz-option>
-          <nz-option nzValue="Admin" nzLabel="Admin"></nz-option>
         </nz-select>
       </nz-form-control>
     </nz-form-item>

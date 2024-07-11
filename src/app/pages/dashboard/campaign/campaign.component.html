@@ -42,8 +42,10 @@
               </thead>
               <tbody>
               <tr *ngFor="let user of leaderboard?.leaderboard; let i = index">
-                <td class="border text-center">{{ i }}</td>
-                <td class="border text-center">{{ getUserName(user) }}</td>
+                <td class="border text-center">{{ i + 1 }}</td>
+                <td class="border text-center">
+                  <a [routerLink]="['/users', user.userId]" class=" hover:underline">{{ getUserName(user) }}</a>
+                </td>
                 <td class="border text-center">{{ user.amountDonated }}</td>
               </tr>
               </tbody>

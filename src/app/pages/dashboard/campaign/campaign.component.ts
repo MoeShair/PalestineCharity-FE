@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, RouterLink} from "@angular/router";
 import {CampaignResponse, CampaignService, LeaderboardResponse} from "./campaign.service";
 import {NzButtonComponent} from "ng-zorro-antd/button";
 import {NzCardComponent} from "ng-zorro-antd/card";
@@ -44,7 +44,8 @@ import {MyCampaignService} from "../../my-campaigns/campaign.service";
     NzFormItemComponent,
     FormsModule,
     NzInputDirective,
-    AddSubcampaignComponent
+    AddSubcampaignComponent,
+    RouterLink
   ],
   templateUrl: './campaign.component.html',
   styleUrl: './campaign.component.scss'
