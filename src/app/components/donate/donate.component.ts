@@ -17,6 +17,7 @@ import {ActivatedRoute} from "@angular/router";
 import {UserModel} from "../../auth/user.model";
 import {Subscription} from "rxjs";
 import {NzSwitchComponent, NzSwitchModule} from "ng-zorro-antd/switch";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-donate',
@@ -43,7 +44,9 @@ export class DonateComponent implements OnDestroy{
   // switchValue: boolean = false
 
   constructor(private fb: FormBuilder, private authService: AuthService,
-              private donateService: DonateService, private route: ActivatedRoute) {
+              private donateService: DonateService,
+              private route: ActivatedRoute,
+              private msg: NzMessageService) {
     this.validateForm = this.fb.group({
       CardNumber: ['', [Validators.required]],
       Name: ['', [Validators.required]],
@@ -67,11 +70,13 @@ export class DonateComponent implements OnDestroy{
         console.log(switchValue)
         userId = user.userID
         this.donateService.loggedInDonation(activeRoute, amount, userId, switchValue).subscribe(resData =>{
+          this.msg.success('Thank you for your donation')
           console.log(resData)
         })
       }
       else{
         this.donateService.notLoggedInDonation(activeRoute, amount).subscribe(resData =>{
+          this.msg.success('Thank you for your donation')
           console.log(resData)
         })
       }
