@@ -33,4 +33,15 @@ export class DonateService {
       return resData.message
     }))
   }
+  subCampaignDonation(campaignId: string, amount: number, userId: string, anonymous: boolean){
+    return this.http.post<donationResponse>('http://localhost:3000/posts/donate/sub-campaign',
+      {
+        subCampaignId: campaignId,
+        userId: userId,
+        amount: amount,
+        anonymous: anonymous
+      }).pipe(tap(resData =>{
+      return resData.message
+    }))
+  }
 }

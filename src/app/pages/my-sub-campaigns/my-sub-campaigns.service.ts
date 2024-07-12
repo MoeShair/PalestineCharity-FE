@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 
-interface SubCampaign {
+export interface SubCampaign {
   _id: string;
   parentCampaign: string;
   influencer: string;

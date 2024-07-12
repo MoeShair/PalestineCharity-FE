@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {AuthService} from "../../auth/auth.service";
 import {of, switchMap} from "rxjs";
+import {SubCampaign, SubCampaignsResponse} from "../my-sub-campaigns/my-sub-campaigns.service";
 
 
 export interface Badge {
@@ -31,7 +32,8 @@ interface Campaign {
 
 export interface DonationRecord {
   _id: string;
-  campaign: Campaign;
+  campaign?: Campaign;
+  subCampaign?: SubCampaign;
   amount: number;
   tokensEarned: number;
   donationDate: string; // ISO date string

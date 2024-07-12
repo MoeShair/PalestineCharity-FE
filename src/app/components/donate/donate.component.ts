@@ -1,4 +1,4 @@
-import {Component, OnDestroy, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnDestroy, ViewEncapsulation} from '@angular/core';
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {NzFormControlComponent, NzFormDirective, NzFormItemComponent} from "ng-zorro-antd/form";
 import {
@@ -39,6 +39,8 @@ import {NzMessageService} from "ng-zorro-antd/message";
   encapsulation: ViewEncapsulation.None
 })
 export class DonateComponent implements OnDestroy{
+
+  @Input() isSubCampaign: boolean = false
   private userSubscription: Subscription | null = null;
   validateForm: FormGroup;
   // switchValue: boolean = false
@@ -69,10 +71,18 @@ export class DonateComponent implements OnDestroy{
       if(user !== null){
         console.log(switchValue)
         userId = user.userID
-        this.donateService.loggedInDonation(activeRoute, amount, userId, switchValue).subscribe(resData =>{
-          this.msg.success('Thank you for your donation')
-          console.log(resData)
-        })
+        if(this.isSubCampaign){
+          this.donateService.subCampaignDonation(activeRoute, amount, userId, switchValue).subscribe(resData =>{
+            this.msg.success('Thank you for your donation')
+            console.log(resData)
+          })
+        }
+        else{
+          this.donateService.loggedInDonation(activeRoute, amount, userId, switchValue).subscribe(resData =>{
+            this.msg.success('Thank you for your donation')
+            console.log(resData)
+          })
+        }
       }
       else{
         this.donateService.notLoggedInDonation(activeRoute, amount).subscribe(resData =>{

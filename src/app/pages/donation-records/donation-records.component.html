@@ -18,7 +18,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let record of donationRecords">
-      <td class="border text-center">{{ record.campaign.campaignName }}</td>
+      <td class="border text-center">{{ record.campaign?.campaignName ? record.campaign?.campaignName : record.subCampaign?.name }}</td>
       <td class="border text-center">{{ record.amount }}</td>
       <td class="border text-center">{{ record.tokensEarned }}</td>
       <td class="border text-center">{{ record.donationDate | date: 'shortDate' }}</td>

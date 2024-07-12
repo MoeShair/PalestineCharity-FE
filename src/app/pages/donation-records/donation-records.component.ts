@@ -18,6 +18,7 @@ import {DatePipe, NgForOf} from "@angular/common";
 export class DonationRecordsComponent implements OnInit{
   donationRecords: DonationRecord[] = [];
   loading = true;
+  campaignName: string = ''
 
   constructor(private profileService: ProfileService) { }
 
@@ -26,5 +27,8 @@ export class DonationRecordsComponent implements OnInit{
       this.donationRecords = responseData?.user.Donationrecords!;
       this.loading = false;
     });
+  }
+  getCampaignName(){
+
   }
 }

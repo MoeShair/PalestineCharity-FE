@@ -36,6 +36,6 @@ export class MySubCampaignsComponent implements OnInit{
 
   }
   navigateToCampaign(campaignId: string){
-    //this.router.navigate(['/campaign', campaignId]);
+    this.router.navigate(['/sub-campaigns', campaignId]);
   }
 }

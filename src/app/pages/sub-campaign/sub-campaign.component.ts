@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AddSubcampaignComponent} from "../../components/add-subcampaign/add-subcampaign.component";
 import {DonateComponent} from "../../components/donate/donate.component";
 import {NgForOf, NgIf} from "@angular/common";
@@ -19,6 +19,7 @@ import {AuthService} from "../../auth/auth.service";
 import {FavouriteService} from "../favourite/favourite.service";
 import {ProfileService} from "../profile/profile.service";
 import {NzMessageService} from "ng-zorro-antd/message";
+import {LoadSubCampaignResponse, SubCampaignService, SubLeaderboardResponse} from "./sub-campaign.service";
 
 @Component({
   selector: 'app-sub-campaign',
@@ -44,20 +45,20 @@ import {NzMessageService} from "ng-zorro-antd/message";
   templateUrl: './sub-campaign.component.html',
   styleUrl: './sub-campaign.component.scss'
 })
-export class SubCampaignComponent {
+export class SubCampaignComponent implements OnInit{
   private userSubscription: Subscription | null = null;
   campaignId: string = "";
-  campaign: CampaignResponse | null = null;
+  campaign: LoadSubCampaignResponse | null = null;
   favourite: boolean = false
   userId : string | null = null
   postText: string = ''
   role: string = ''
   submitting = false;
 
-  leaderboard: LeaderboardResponse | null = null
+  leaderboard: SubLeaderboardResponse | null = null
 
   constructor(private route: ActivatedRoute,
-              private campaignService: CampaignService,
+              private subCampaignService: SubCampaignService,
               private authService: AuthService,
               private favouriteService: FavouriteService,
               private profileService: ProfileService,
@@ -68,11 +69,11 @@ export class SubCampaignComponent {
       this.role = response?.user.Role!
     })
     this.campaignId = this.route.snapshot.params['id'];
-    this.campaignService.loadCampaign(this.campaignId).subscribe(resData=>{
+    this.subCampaignService.loadCampaign(this.campaignId).subscribe(resData=>{
       this.campaign = resData;
       console.log(resData)
     });
-    this.campaignService.getLeaderboard(this.campaignId).subscribe(resData =>{
+    this.subCampaignService.getLeaderboard(this.campaignId).subscribe(resData =>{
       this.leaderboard = resData
       console.log(this.leaderboard)
     })
@@ -113,32 +114,25 @@ export class SubCampaignComponent {
     })
   }
   getUserName(user: any): string {
-    return user.userName || 'Anonymous';
+    return user.name || 'Anonymous';
   }
   getProgressPercentage(): string {
-    if (this.campaign?.campaign.goalAmount === 0) {
+    if (this.campaign?.subCampaign.goalAmount === 0) {
       return '0';
     }
-    return ((this.campaign?.campaign.currentAmount! / this.campaign?.campaign.goalAmount!) * 100).toFixed(1);
+    return ((this.campaign?.subCampaign.currentAmount! / this.campaign?.subCampaign.goalAmount!) * 100).toFixed(1);
   }
   getGoalAmount(): number {
-    if (this.campaign?.campaign.goalAmount === 0 || this.campaign?.campaign.goalAmount === undefined) {
+    if (this.campaign?.subCampaign.goalAmount === 0 || this.campaign?.subCampaign.goalAmount === undefined) {
       return 0;
     }
-    return this.campaign?.campaign.goalAmount!
+    return this.campaign?.subCampaign.goalAmount!
   }
   getCurrentAmount(): number {
-    if (this.campaign?.campaign.currentAmount === 0 || this.campaign?.campaign.currentAmount === undefined) {
+    if (this.campaign?.subCampaign.currentAmount === 0 || this.campaign?.subCampaign.currentAmount === undefined) {
       return 0;
     }
-    return this.campaign?.campaign.currentAmount!
-  }
-  postNewUpdate(){
-    this.submitting = true
-    this.campaignService.postNewsUpdate(this.campaignId,this.postText).subscribe()
-    this.postText = ''
-    this.submitting = false
-    this.msg.success("Post added successfully!!")
+    return this.campaign?.subCampaign.currentAmount!
   }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
