@@ -159,6 +159,19 @@ export class CampaignComponent implements OnInit, OnDestroy{
 
     })
   }
+  share(){
+    if (navigator.share) {
+      navigator.share({
+        title: document.title,
+        text: 'Check out this amazing content!',
+        url: window.location.href
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.error('Error sharing', error));
+    } else {
+      console.warn('Web Share API not supported in this browser.');
+    }
+  }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
   }
