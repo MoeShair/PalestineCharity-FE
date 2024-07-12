@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AddSubcampaignComponent} from "../../components/add-subcampaign/add-subcampaign.component";
 import {DonateComponent} from "../../components/donate/donate.component";
 import {NgForOf, NgIf} from "@angular/common";
@@ -45,7 +45,7 @@ import {LoadSubCampaignResponse, SubCampaignService, SubLeaderboardResponse} fro
   templateUrl: './sub-campaign.component.html',
   styleUrl: './sub-campaign.component.scss'
 })
-export class SubCampaignComponent implements OnInit{
+export class SubCampaignComponent implements OnInit, OnDestroy{
   private userSubscription: Subscription | null = null;
   campaignId: string = "";
   campaign: LoadSubCampaignResponse | null = null;
@@ -133,6 +133,19 @@ export class SubCampaignComponent implements OnInit{
       return 0;
     }
     return this.campaign?.subCampaign.currentAmount!
+  }
+  share(){
+    if (navigator.share) {
+      navigator.share({
+        title: document.title,
+        text: 'Check out this amazing content!',
+        url: window.location.href
+      })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.error('Error sharing', error));
+    } else {
+      console.warn('Web Share API not supported in this browser.');
+    }
   }
   ngOnDestroy() {
     this.userSubscription?.unsubscribe()
