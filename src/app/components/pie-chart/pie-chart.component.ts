@@ -20,15 +20,23 @@ export class PieChartComponent implements OnInit{
   @ViewChild(BaseChartDirective) chart: BaseChartDirective | undefined;
 
   @Input() campaignId: string = ''
+  @Input() isSub: boolean = false
   donationData: DonationData | any = null
 
   constructor(private chartService: ChartDataService) {
   }
   ngOnInit() {
-    this.chartService.getChartData(this.campaignId).subscribe(response => {
-      this.donationData = response;
-      this.setPieChartData();
-    })
+    if(this.isSub){
+      this.chartService.getSubChartData(this.campaignId).subscribe(response => {
+        this.donationData = response;
+        this.setPieChartData();
+      })
+    }else{
+      this.chartService.getChartData(this.campaignId).subscribe(response => {
+        this.donationData = response;
+        this.setPieChartData();
+      })
+    }
   }
 
   setPieChartData() {

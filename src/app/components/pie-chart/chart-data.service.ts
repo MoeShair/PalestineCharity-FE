@@ -22,4 +22,7 @@ export class ChartDataService {
   getChartData(campaignId: string){
     return this.http.get<DonationData>(`http://localhost:3000/posts/chart/${campaignId}`)
   }
+  getSubChartData(campaignId: string){
+    return this.http.get<DonationData>(`http://localhost:3000/posts/sub-campaign-chart/${campaignId}`)
+  }
 }
