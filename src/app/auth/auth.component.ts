@@ -8,6 +8,7 @@ import {LayoutSiderService} from "../layout/layout-sider.service";
 import {CommonModule} from "@angular/common";
 import {AuthService, Response, signUpResponse} from "./auth.service";
 import {Observable} from "rxjs";
+import {NzMessageService} from "ng-zorro-antd/message";
 
 @Component({
   selector: 'app-auth',
@@ -29,7 +30,8 @@ export class AuthComponent {
   constructor(private router: Router,
               private fb: NonNullableFormBuilder,
               private sideNavService: LayoutSiderService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private msg: NzMessageService) {
   }
   @Input()
   mode: 'logIn'|'signUp'= "logIn";
@@ -63,6 +65,9 @@ export class AuthComponent {
             this.sideNavService.siderSubject.next(true);
             this.router.navigate(['']);
           },
+          error: err => {
+            this.msg.error('Wrong password or email!')
+          }
         });
       }
     }
