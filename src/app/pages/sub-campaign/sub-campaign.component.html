@@ -5,10 +5,10 @@
       <div class="flex w-50%">
         <h1 class="mt-5 text-3xl pl-5">{{campaign?.subCampaign?.name ?? ''}}</h1>
       </div>
-      <div class="flex items-center justify-end w-50 mt-5">
-        <button *ngIf="!favourite" nz-button nzType="primary" class="rounded-2xl" (click)="addFavorite()">Add to bookmarks</button>
-        <button *ngIf="favourite" nz-button nzType="default" nzDanger class="rounded-2xl" (click)="removeFavourite()">Remove from bookmarks</button>
-        <button nz-button nzType="primary" class="rounded-2xl m-2" (click)="share()">share</button>
+      <div class="flex flex-col lg:flex-row items-center justify-end w-full mt-5">
+        <button *ngIf="!favourite" nz-button nzType="primary" class="rounded-2xl mb-2 lg:mb-0 lg:mr-2" (click)="addFavorite()">Add to bookmarks</button>
+        <button *ngIf="favourite" nz-button nzType="default" nzDanger class="rounded-2xl mb-2 lg:mb-0 lg:mr-2" (click)="removeFavourite()">Remove from bookmarks</button>
+        <button nz-button nzType="primary" class="rounded-2xl" (click)="share()">Share</button>
       </div>
     </div>
   </nz-card>
