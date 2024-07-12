@@ -3,7 +3,7 @@ import {ShopItem, ShopService} from "./shop.service";
 import {NzCardComponent} from "ng-zorro-antd/card";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
 import {NzButtonComponent} from "ng-zorro-antd/button";
-import {ProfileService} from "../profile/profile.service";
+import {ProfileService, User} from "../profile/profile.service";
 import {NzMessageService} from "ng-zorro-antd/message";
 import {InventoryService} from "../inventory/inventory.service";
 import {catchError, map, Observable, of} from "rxjs";
@@ -24,10 +24,11 @@ import {catchError, map, Observable, of} from "rxjs";
 export class ShopComponent implements OnInit{
 
   fonts: ShopItem[] | null = null
-  // borders: ShopItem[] | null = null
   ProfilePics: ShopItem[] | null = null
   BackgroundPics: ShopItem[] | null = null
+  user: User| null = null
   userId = ""
+  itemPrice: number = 0
 
   constructor(private shop: ShopService,
               private profileService: ProfileService,
@@ -37,6 +38,7 @@ export class ShopComponent implements OnInit{
   ngOnInit() {
     this.profileService.getUSerInfo().subscribe(response =>{
       this.userId = response?.user._id!
+      this.user = response
     })
 
     this.shop.getFonts().subscribe(response =>{
@@ -64,14 +66,16 @@ export class ShopComponent implements OnInit{
     })
   }
   buyItem(itemId: string){
-    this.shop.buyItem(this.userId, itemId).subscribe(
-      () => {
-        this.message.success('Item purchased successfully!');
-      },
-      (error) => {
-        console.error('Error buying item:', error);
-        this.message.error('You already have this item!');
-      })
+      this.shop.buyItem(this.userId, itemId).subscribe(
+
+        () => {
+          this.message.success('Item purchased successfully!');
+        },
+        (error) => {
+          console.error('Error buying item:', error);
+          this.message.error(error.error.message);
+        })
+
   }
 
   isItemOwned(item: ShopItem): Observable<boolean> {
